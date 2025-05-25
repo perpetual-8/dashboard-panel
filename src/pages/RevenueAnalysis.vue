@@ -12,13 +12,16 @@
 
     <h5 class="mt-4 mb-2">Revenue Trends</h5>
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-6">
         <LineChart title="Orders" trend="+12%" />
       </div>
-      <div class="col-md-4">
+      <div class="col-6">
         <LineChart title="Sales" trend="+8%" />
       </div>
-      <div class="col-md-4">
+    
+    </div>
+    <div class="row mt-4">
+        <div class="col-12">
         <LineChart title="Inventory" trend="-5%" />
       </div>
     </div>
