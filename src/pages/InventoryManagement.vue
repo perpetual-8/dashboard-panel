@@ -1,49 +1,44 @@
 <template>
   <div class="inventory-container container mt-4">
     <h2 class="mb-4">Inventory Management</h2>
-
-     <div class="inventory-controls">
-  <div class="control-group">
-    <input
+ 
+    
+    <div class="inventory-controls d-flex flex-wrap gap-3 mb-4">
+  <div class="control-group flex-grow-1" style="min-width: 200px;">
+    <BaseInput
       v-model="searchQuery"
       type="text"
-      class="form-control"
       placeholder="Search products..."
+      @update:modelValue="searchQuery = $event"
     />
   </div>
 
-  <div class="control-group">
-    <div class="dropdown-wrapper">
-      <select v-model="filterCategory" class="form-select dropdown-animated">
-        <option value="All">All Categories</option>
-        <option v-for="cat in categories" :key="cat" :value="cat">
-          {{ cat }}
-        </option>
-      </select>
-    </div>
+  <div class="control-group" style="min-width: 180px;">
+    <BaseSelect v-model="filterCategory" @update:modelValue="filterCategory = $event">
+      <option value="All">All Categories</option>
+      <option v-for="cat in categories" :key="cat" :value="cat">
+        {{ cat }}
+      </option>
+    </BaseSelect>
   </div>
 
-  <div class="control-group">
-    <div class="dropdown-wrapper">
-      <select v-model="sortField" class="form-select dropdown-animated">
-        <option value="name">Name</option>
-        <option value="stock">Stock</option>
-        <option value="price">Price</option>
-      </select>
-    </div>
+  <div class="control-group" style="min-width: 140px;">
+    <BaseSelect v-model="sortField" @update:modelValue="sortField = $event">
+      <option value="name">Name</option>
+      <option value="stock">Stock</option>
+      <option value="price">Price</option>
+    </BaseSelect>
   </div>
 
-  <div class="control-group">
-    <div class="dropdown-wrapper">
-      <select v-model="sortOrder" class="form-select dropdown-animated">
-        <option value="asc">Ascending</option>
-        <option value="desc">Descending</option>
-      </select>
-    </div>
+  <div class="control-group" style="min-width: 140px;">
+    <BaseSelect v-model="sortOrder" @update:modelValue="sortOrder = $event">
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </BaseSelect>
   </div>
 </div>
 
-
+     
     <div v-if="loading" class="text-center py-5">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -108,7 +103,8 @@
     </div>
 
     <!-- Edit Product Modal -->
-    <div
+   
+     <div
       class="modal fade"
       id="editProductModal"
       tabindex="-1"
@@ -130,28 +126,30 @@
             <form @submit.prevent="saveProduct">
               <div class="mb-3">
                 <label for="editName" class="form-label">Product Name</label>
-                <input
+                <BaseInput
                   v-model="editProductData.name"
                   type="text"
-                  class="form-control"
                   id="editName"
                   required
                 />
               </div>
               <div class="mb-3">
                 <label for="editCategory" class="form-label">Category</label>
-                <select v-model="editProductData.category" class="form-select" id="editCategory" required>
+                <BaseSelect
+                  v-model="editProductData.category"
+                  id="editCategory"
+                  required
+                >
                   <option v-for="cat in categories" :key="cat" :value="cat">
                     {{ cat }}
                   </option>
-                </select>
+                </BaseSelect>
               </div>
               <div class="mb-3">
                 <label for="editPrice" class="form-label">Price ($)</label>
-                <input
+                <BaseInput
                   v-model.number="editProductData.price"
                   type="number"
-                  class="form-control"
                   id="editPrice"
                   step="0.01"
                   required
@@ -159,10 +157,9 @@
               </div>
               <div class="mb-3">
                 <label for="editStock" class="form-label">Stock</label>
-                <input
+                <BaseInput
                   v-model.number="editProductData.stock"
                   type="number"
-                  class="form-control"
                   id="editStock"
                   required
                 />
@@ -175,7 +172,7 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-    <div
+   <div
       class="modal fade"
       id="deleteProductModal"
       tabindex="-1"
@@ -215,6 +212,7 @@
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -226,6 +224,8 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import BaseInput from "@/components/microUI/BaseInput.vue";
+import BaseSelect from "@/components/microUI/BaseSelect.vue";
 
 const products = ref([]);
 const categories = ["Electronics", "Clothing", "Accessories"];
