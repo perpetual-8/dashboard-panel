@@ -1,18 +1,26 @@
-$breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1400px
-);
 
-@mixin respond-to($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
+@function bp($key) {
+  @if map-has-key($breakpoints, $key) {
+    @return map-get($breakpoints, $key);
   } @else {
-    @warn "Unknown breakpoint: #{$breakpoint}.";
+    @error "Unknown breakpoint `#{$key}`.";
+  }
+}
+ 
+@mixin respond-above($key) {
+  @media (min-width: bp($key)) {
+    @content;
+  }
+}
+ 
+@mixin respond-below($key) {
+  @media (max-width: bp($key)) {
+    @content;
+  }
+}
+ 
+@mixin respond-between($min, $max) {
+  @media (min-width: bp($min)) and (max-width: bp($max)) {
+    @content;
   }
 }

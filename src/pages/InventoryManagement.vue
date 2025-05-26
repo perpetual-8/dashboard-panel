@@ -1,30 +1,48 @@
- <template>
+<template>
   <div class="inventory-container container mt-4">
     <h2 class="mb-4">Inventory Management</h2>
 
-    <div class="inventory-controls mb-4 d-flex flex-wrap gap-3">
-      <input
-        v-model="searchQuery"
-        type="text"
-        class="form-control w-auto"
-        placeholder="Search products..."
-      />
-      <select v-model="filterCategory" class="form-select w-auto">
+     <div class="inventory-controls">
+  <div class="control-group">
+    <input
+      v-model="searchQuery"
+      type="text"
+      class="form-control"
+      placeholder="Search products..."
+    />
+  </div>
+
+  <div class="control-group">
+    <div class="dropdown-wrapper">
+      <select v-model="filterCategory" class="form-select dropdown-animated">
         <option value="All">All Categories</option>
         <option v-for="cat in categories" :key="cat" :value="cat">
           {{ cat }}
         </option>
       </select>
-      <select v-model="sortField" class="form-select w-auto">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="dropdown-wrapper">
+      <select v-model="sortField" class="form-select dropdown-animated">
         <option value="name">Name</option>
         <option value="stock">Stock</option>
         <option value="price">Price</option>
       </select>
-      <select v-model="sortOrder" class="form-select w-auto">
+    </div>
+  </div>
+
+  <div class="control-group">
+    <div class="dropdown-wrapper">
+      <select v-model="sortOrder" class="form-select dropdown-animated">
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
       </select>
     </div>
+  </div>
+</div>
+
 
     <div v-if="loading" class="text-center py-5">
       <div class="spinner-border" role="status">
@@ -81,13 +99,121 @@
       class="alert alert-warning mt-4"
     >
       <h5><i class="bi bi-exclamation-triangle me-2"></i>Low Inventory Alerts</h5>
-      <ul class="mb-0">
-        <li v-for="product in lowInventoryProducts" :key="product.id">
-          <strong>{{ product.name }}</strong> ({{ product.category }}) -
-          <span class="text-danger">{{ product.stock }} units</span> remaining
-          <small class="text-muted">(Restock recommended)</small>
-        </li>
-      </ul>
+      <ul class="mb-0"><li v-for="product in lowInventoryProducts" :key="product.id">
+        <strong>{{ product.name }}</strong> ({{ product.category }}) -
+        <span class="text-danger">{{ product.stock }} units</span> remaining
+        <small class="text-muted">(Restock recommended)</small>
+      </li>
+    </ul>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div
+      class="modal fade"
+      id="editProductModal"
+      tabindex="-1"
+      aria-labelledby="editProductModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="saveProduct">
+              <div class="mb-3">
+                <label for="editName" class="form-label">Product Name</label>
+                <input
+                  v-model="editProductData.name"
+                  type="text"
+                  class="form-control"
+                  id="editName"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editCategory" class="form-label">Category</label>
+                <select v-model="editProductData.category" class="form-select" id="editCategory" required>
+                  <option v-for="cat in categories" :key="cat" :value="cat">
+                    {{ cat }}
+                  </option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="editPrice" class="form-label">Price ($)</label>
+                <input
+                  v-model.number="editProductData.price"
+                  type="number"
+                  class="form-control"
+                  id="editPrice"
+                  step="0.01"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editStock" class="form-label">Stock</label>
+                <input
+                  v-model.number="editProductData.stock"
+                  type="number"
+                  class="form-control"
+                  id="editStock"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Save changes</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div
+      class="modal fade"
+      id="deleteProductModal"
+      tabindex="-1"
+      aria-labelledby="deleteProductModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteProductModalLabel">Confirm Delete</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to delete <strong>{{ deleteProductData.name }}</strong>?
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              @click="confirmDeleteProduct"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -95,8 +221,11 @@
 <script setup>
 import { ref, computed, onMounted } from "vue";
 import { AgGridVue } from "ag-grid-vue3";
+import * as bootstrap from "bootstrap";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 const products = ref([]);
 const categories = ["Electronics", "Clothing", "Accessories"];
@@ -106,6 +235,8 @@ const sortField = ref("name");
 const sortOrder = ref("asc");
 const loading = ref(false);
 const error = ref("");
+const editProductData = ref({});
+const deleteProductData = ref({});
 
 const columnDefs = [
   {
@@ -139,6 +270,21 @@ const columnDefs = [
       params.value <= 10
         ? { backgroundColor: "#fff3cd", color: "#856404" }
         : null,
+  },
+  {
+    field: "actions",
+    headerName: "Actions",
+    width: 150,
+    cellRenderer: (params) => {
+      const div = document.createElement("div");
+      div.innerHTML = `
+        <button class="btn btn-outline-primary btn-sm me-1" data-action="edit">Edit</button>
+        <button class="btn btn-outline-danger btn-sm" data-action="delete">Delete</button>
+      `;
+      div.querySelector("[data-action='edit']").addEventListener("click", () => editProduct(params.data));
+      div.querySelector("[data-action='delete']").addEventListener("click", () => deleteProduct(params.data));
+      return div;
+    },
   },
 ];
 
@@ -199,15 +345,71 @@ const onGridReady = (params) => {
   params.api.sizeColumnsToFit();
 };
 
-const onCellValueChanged = (event) => {
+const onCellValueChanged = async (event) => {
   const product = products.value.find((p) => p.id === event.data.id);
   if (product && event.colDef.field === "stock") {
     const newStock = Number(event.newValue);
     if (!isNaN(newStock) && newStock >= 0) {
-      product.stock = newStock;
+      try {
+        const res = await fetch(`http://localhost:3001/api/products/${product.id}`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...product, stock: newStock }),
+        });
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        product.stock = newStock;
+      } catch (err) {
+        error.value = `Failed to update stock: ${err.message}`;
+        event.node.setDataValue(event.colDef.field, event.oldValue);
+      }
     } else {
       event.node.setDataValue(event.colDef.field, event.oldValue);
     }
+  }
+};
+
+const editProduct = (product) => {
+  editProductData.value = { ...product };
+  const modal = new bootstrap.Modal(document.getElementById("editProductModal"));
+  modal.show();
+};
+
+const saveProduct = async () => {
+  const product = editProductData.value;
+  if (product.name && product.category && product.price >= 0 && product.stock >= 0) {
+    try {
+      const res = await fetch(`http://localhost:3001/api/products/${product.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(product),
+      });
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const index = products.value.findIndex((p) => p.id === product.id);
+      products.value[index] = product;
+      bootstrap.Modal.getInstance(document.getElementById("editProductModal")).hide();
+    } catch (err) {
+      error.value = `Failed to update product: ${err.message}`;
+    }
+  }
+};
+
+const deleteProduct = (product) => {
+  deleteProductData.value = product;
+  const modal = new bootstrap.Modal(document.getElementById("deleteProductModal"));
+  modal.show();
+};
+
+const confirmDeleteProduct = async () => {
+  const id = deleteProductData.value.id;
+  try {
+    const res = await fetch(`http://localhost:3001/api/products/${id}`, {
+      method: "DELETE",
+    });
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    products.value = products.value.filter((p) => p.id !== id);
+    bootstrap.Modal.getInstance(document.getElementById("deleteProductModal")).hide();
+  } catch (err) {
+    error.value = `Failed to delete product: ${err.message}`;
   }
 };
 
@@ -257,7 +459,7 @@ $text-muted: #6c757d;
   border: 1px solid $border-color;
   padding: 1.5rem;
   max-width: 1200px;
-  min-height: calc(100vh - 4rem);
+  // min-height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
 
@@ -277,8 +479,6 @@ $text-muted: #6c757d;
     padding: 1rem;
     border-radius: 0.5rem;
     border: 1px solid $border-color;
-
-   
   }
 
   .alert {
@@ -303,7 +503,7 @@ $text-muted: #6c757d;
   .ag-theme-alpine {
     border: 1px solid #dee2e6;
     border-radius: 0.375rem;
-    height: calc(100vh - 250px);
+    // height: calc(100vh - 250px);
     width: 100%;
     flex-grow: 1;
 
@@ -332,9 +532,9 @@ $text-muted: #6c757d;
       }
     }
 
-    .ag-theme-alpine {
-      height: calc(100vh - 300px);
-    }
+    // .ag-theme-alpine {
+    //   height: calc(100vh - 300px);
+    // }
   }
 }
 </style>
