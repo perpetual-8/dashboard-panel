@@ -47,5 +47,5 @@
 <script setup>
 import StatCard from '../components/micro/StatCard.vue'
 import CategoryRevenue from '../components/macro/CategoryRevenue.vue'
-import LineChart from '../components/charts/LineChart.vue'
+import LineChart from '../components/micro/LineChart.vue'
 </script>
