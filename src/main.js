@@ -1,6 +1,13 @@
-import './assets/main.css'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/styles/main.scss";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import { AgGridVue } from "ag-grid-vue3";
 
-import { createApp } from 'vue'
-import App from './App.vue'
+const app = createApp(App);
 
-createApp(App).mount('#app')
+app.use(router);
+app.component("ag-grid-vue", AgGridVue);
+app.mount("#app");
