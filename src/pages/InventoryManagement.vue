@@ -1,44 +1,45 @@
 <template>
   <div class="inventory-container container mt-4">
     <h2 class="mb-4">Inventory Management</h2>
- 
-    
+
     <div class="inventory-controls d-flex flex-wrap gap-3 mb-4">
-  <div class="control-group flex-grow-1" style="min-width: 200px;">
-    <BaseInput
-      v-model="searchQuery"
-      type="text"
-      placeholder="Search products..."
-      @update:modelValue="searchQuery = $event"
-    />
-  </div>
+      <div class="control-group flex-grow-1" style="min-width: 200px">
+        <BaseInput
+          v-model="searchQuery"
+          type="text"
+          placeholder="Search products..."
+          @update:modelValue="searchQuery = $event"
+        />
+      </div>
 
-  <div class="control-group" style="min-width: 180px;">
-    <BaseSelect v-model="filterCategory" @update:modelValue="filterCategory = $event">
-      <option value="All">All Categories</option>
-      <option v-for="cat in categories" :key="cat" :value="cat">
-        {{ cat }}
-      </option>
-    </BaseSelect>
-  </div>
+      <div class="control-group" style="min-width: 180px">
+        <BaseSelect
+          v-model="filterCategory"
+          @update:modelValue="filterCategory = $event"
+        >
+          <option value="All">All Categories</option>
+          <option v-for="cat in categories" :key="cat" :value="cat">
+            {{ cat }}
+          </option>
+        </BaseSelect>
+      </div>
 
-  <div class="control-group" style="min-width: 140px;">
-    <BaseSelect v-model="sortField" @update:modelValue="sortField = $event">
-      <option value="name">Name</option>
-      <option value="stock">Stock</option>
-      <option value="price">Price</option>
-    </BaseSelect>
-  </div>
+      <div class="control-group" style="min-width: 140px">
+        <BaseSelect v-model="sortField" @update:modelValue="sortField = $event">
+          <option value="name">Name</option>
+          <option value="stock">Stock</option>
+          <option value="price">Price</option>
+        </BaseSelect>
+      </div>
 
-  <div class="control-group" style="min-width: 140px;">
-    <BaseSelect v-model="sortOrder" @update:modelValue="sortOrder = $event">
-      <option value="asc">Ascending</option>
-      <option value="desc">Descending</option>
-    </BaseSelect>
-  </div>
-</div>
+      <div class="control-group" style="min-width: 140px">
+        <BaseSelect v-model="sortOrder" @update:modelValue="sortOrder = $event">
+          <option value="asc">Ascending</option>
+          <option value="desc">Descending</option>
+        </BaseSelect>
+      </div>
+    </div>
 
-     
     <div v-if="loading" class="text-center py-5">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
@@ -47,7 +48,9 @@
     </div>
 
     <div v-else-if="error" class="alert alert-danger">
-      <h5><i class="bi bi-exclamation-circle me-2"></i>Error Loading Products</h5>
+      <h5>
+        <i class="bi bi-exclamation-circle me-2"></i>Error Loading Products
+      </h5>
       <p>{{ error }}</p>
       <button @click="fetchProducts" class="btn btn-outline-danger btn-sm">
         Try Again
@@ -63,7 +66,9 @@
     </div>
 
     <div
-      v-else-if="!loading && products.length > 0 && filteredProducts.length === 0"
+      v-else-if="
+        !loading && products.length > 0 && filteredProducts.length === 0
+      "
       class="alert alert-warning text-center py-4"
     >
       <h5><i class="bi bi-search me-2"></i>No Results Found</h5>
@@ -93,18 +98,21 @@
       v-if="!loading && lowInventoryProducts.length"
       class="alert alert-warning mt-4"
     >
-      <h5><i class="bi bi-exclamation-triangle me-2"></i>Low Inventory Alerts</h5>
-      <ul class="mb-0"><li v-for="product in lowInventoryProducts" :key="product.id">
-        <strong>{{ product.name }}</strong> ({{ product.category }}) -
-        <span class="text-danger">{{ product.stock }} units</span> remaining
-        <small class="text-muted">(Restock recommended)</small>
-      </li>
-    </ul>
+      <h5>
+        <i class="bi bi-exclamation-triangle me-2"></i>Low Inventory Alerts
+      </h5>
+      <ul class="mb-0">
+        <li v-for="product in lowInventoryProducts" :key="product.id">
+          <strong>{{ product.name }}</strong> ({{ product.category }}) -
+          <span class="text-danger">{{ product.stock }} units</span> remaining
+          <small class="text-muted">(Restock recommended)</small>
+        </li>
+      </ul>
     </div>
 
     <!-- Edit Product Modal -->
-   
-     <div
+
+    <div
       class="modal fade"
       id="editProductModal"
       tabindex="-1"
@@ -164,7 +172,9 @@
                   required
                 />
               </div>
-              <button type="submit" class="btn btn-primary">Save changes</button>
+              <button type="submit" class="btn btn-primary">
+                Save changes
+              </button>
             </form>
           </div>
         </div>
@@ -172,7 +182,7 @@
     </div>
 
     <!-- Delete Confirmation Modal -->
-   <div
+    <div
       class="modal fade"
       id="deleteProductModal"
       tabindex="-1"
@@ -182,7 +192,9 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="deleteProductModalLabel">Confirm Delete</h5>
+            <h5 class="modal-title" id="deleteProductModalLabel">
+              Confirm Delete
+            </h5>
             <button
               type="button"
               class="btn-close"
@@ -191,7 +203,9 @@
             ></button>
           </div>
           <div class="modal-body">
-            Are you sure you want to delete <strong>{{ deleteProductData.name }}</strong>?
+            Are you sure you want to delete
+            <strong>{{ deleteProductData.name }}</strong
+            >?
           </div>
           <div class="modal-footer">
             <button
@@ -212,7 +226,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -220,10 +233,6 @@
 import { ref, computed, onMounted } from "vue";
 import { AgGridVue } from "ag-grid-vue3";
 import * as bootstrap from "bootstrap";
-import "ag-grid-community/styles/ag-grid.css";
-import "ag-grid-community/styles/ag-theme-alpine.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 import BaseInput from "@/components/microUI/BaseInput.vue";
 import BaseSelect from "@/components/microUI/BaseSelect.vue";
 
@@ -281,8 +290,12 @@ const columnDefs = [
         <button class="btn btn-outline-primary btn-sm me-1" data-action="edit">Edit</button>
         <button class="btn btn-outline-danger btn-sm" data-action="delete">Delete</button>
       `;
-      div.querySelector("[data-action='edit']").addEventListener("click", () => editProduct(params.data));
-      div.querySelector("[data-action='delete']").addEventListener("click", () => deleteProduct(params.data));
+      div
+        .querySelector("[data-action='edit']")
+        .addEventListener("click", () => editProduct(params.data));
+      div
+        .querySelector("[data-action='delete']")
+        .addEventListener("click", () => deleteProduct(params.data));
       return div;
     },
   },
@@ -351,11 +364,14 @@ const onCellValueChanged = async (event) => {
     const newStock = Number(event.newValue);
     if (!isNaN(newStock) && newStock >= 0) {
       try {
-        const res = await fetch(`http://localhost:3001/api/products/${product.id}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...product, stock: newStock }),
-        });
+        const res = await fetch(
+          `http://localhost:3001/api/products/${product.id}`,
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...product, stock: newStock }),
+          }
+        );
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         product.stock = newStock;
       } catch (err) {
@@ -370,29 +386,42 @@ const onCellValueChanged = async (event) => {
 
 const editProduct = (product) => {
   editProductData.value = { ...product };
-  const modal = new bootstrap.Modal(document.getElementById("editProductModal"));
+  const modal = new bootstrap.Modal(
+    document.getElementById("editProductModal")
+  );
   modal.show();
 };
- const saveProduct = async () => {
+const saveProduct = async () => {
   const product = { ...editProductData.value }; // Create a copy to avoid direct mutation
-  if (product.name && product.category && product.price >= 0 && product.stock >= 0) {
+  if (
+    product.name &&
+    product.category &&
+    product.price >= 0 &&
+    product.stock >= 0
+  ) {
     try {
-      const res = await fetch(`http://localhost:3001/api/products/${product.id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(product),
-      });
+      const res = await fetch(
+        `http://localhost:3001/api/products/${product.id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(product),
+        }
+      );
       const result = await res.json();
-      if (!res.ok) throw new Error(result.message || `HTTP error! status: ${res.status}`);
-      
+      if (!res.ok)
+        throw new Error(result.message || `HTTP error! status: ${res.status}`);
+
       // Update local products array
       const index = products.value.findIndex((p) => p.id === product.id);
       if (index !== -1) {
         products.value[index] = { ...product }; // Ensure reactivity
         products.value = [...products.value]; // Trigger reactivity
       }
-      
-      bootstrap.Modal.getInstance(document.getElementById("editProductModal")).hide();
+
+      bootstrap.Modal.getInstance(
+        document.getElementById("editProductModal")
+      ).hide();
       error.value = ""; // Clear any previous errors
     } catch (err) {
       error.value = `Failed to update product: ${err.message}`;
@@ -409,12 +438,15 @@ const confirmDeleteProduct = async () => {
       method: "DELETE",
     });
     const result = await res.json();
-    if (!res.ok) throw new Error(result.message || `HTTP error! status: ${res.status}`);
-    
+    if (!res.ok)
+      throw new Error(result.message || `HTTP error! status: ${res.status}`);
+
     // Update local products array
     products.value = products.value.filter((p) => p.id !== id);
-    
-    bootstrap.Modal.getInstance(document.getElementById("deleteProductModal")).hide();
+
+    bootstrap.Modal.getInstance(
+      document.getElementById("deleteProductModal")
+    ).hide();
     error.value = ""; // Clear any previous errors
   } catch (err) {
     error.value = `Failed to delete product: ${err.message}`;
@@ -423,11 +455,11 @@ const confirmDeleteProduct = async () => {
 
 const deleteProduct = (product) => {
   deleteProductData.value = product;
-  const modal = new bootstrap.Modal(document.getElementById("deleteProductModal"));
+  const modal = new bootstrap.Modal(
+    document.getElementById("deleteProductModal")
+  );
   modal.show();
 };
-
- 
 
 const fetchProducts = async () => {
   loading.value = true;
@@ -450,11 +482,11 @@ const fetchProducts = async () => {
 
 onMounted(() => {
   fetchProducts();
-  const style = document.createElement('style');
+  const style = document.createElement("style");
   style.textContent = `
     .ag-root-wrapper-body.ag-layout-normal {
       height: 100%;
-      flex: 0 0 auto;
+     border-radius:8px !important;
     }
   `;
   document.head.appendChild(style);
@@ -478,10 +510,11 @@ $text-muted: #6c757d;
   // min-height: calc(100vh - 4rem);
   display: flex;
   flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   &:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    border-color: $primary-color;
+    // border-color: $primary-color;
   }
 
   h2 {
@@ -518,10 +551,12 @@ $text-muted: #6c757d;
 
   .ag-theme-alpine {
     border: 1px solid #dee2e6;
-    border-radius: 0.375rem;
+    border: 0px solid;
     // height: calc(100vh - 250px);
     width: 100%;
     flex-grow: 1;
+    --ag-border-color: rgba(0, 0, 0, 0.1);
+    --ag-wrapper-border-radius: 8px;
 
     .ag-root-wrapper {
       height: 100%;
@@ -536,7 +571,7 @@ $text-muted: #6c757d;
 @media (max-width: 768px) {
   .inventory-container {
     padding: 1rem;
-    min-height: calc(100vh - 2rem);
+    // min-height: calc(100vh - 2rem);
 
     .inventory-controls {
       flex-direction: column;

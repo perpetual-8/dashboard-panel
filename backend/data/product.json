@@ -238,5 +238,13 @@
     "stock": 50,
     "category": "Accessories",
     "id": 1748246547698
+  },
+  {
+    "name": "adsf",
+    "description": "af",
+    "price": 11,
+    "stock": 11,
+    "category": "Electronics",
+    "id": 1748269271575
   }
 ]
