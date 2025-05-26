@@ -1,0 +1,17 @@
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid $border-color;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+  }
+
+  @include respond-below(md) {
+    font-size: 0.8rem;
+  }
+}

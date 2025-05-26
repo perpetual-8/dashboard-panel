@@ -1,8 +1,7 @@
-<template>
-  <div class="inventory-container">
+ <template>
+  <div class="inventory-container container mt-4">
     <h2 class="mb-4">Inventory Management</h2>
 
-    <!-- Search and Filter -->
     <div class="inventory-controls mb-4 d-flex flex-wrap gap-3">
       <input
         v-model="searchQuery"
@@ -12,7 +11,9 @@
       />
       <select v-model="filterCategory" class="form-select w-auto">
         <option value="All">All Categories</option>
-        <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+        <option v-for="cat in categories" :key="cat" :value="cat">
+          {{ cat }}
+        </option>
       </select>
       <select v-model="sortField" class="form-select w-auto">
         <option value="name">Name</option>
@@ -25,23 +26,66 @@
       </select>
     </div>
 
-    <!-- Inventory Table -->
-    <div class="ag-theme-alpine" style="height: 400px;">
+    <div v-if="loading" class="text-center py-5">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2 text-muted">Loading products...</p>
+    </div>
+
+    <div v-else-if="error" class="alert alert-danger">
+      <h5><i class="bi bi-exclamation-circle me-2"></i>Error Loading Products</h5>
+      <p>{{ error }}</p>
+      <button @click="fetchProducts" class="btn btn-outline-danger btn-sm">
+        Try Again
+      </button>
+    </div>
+
+    <div
+      v-else-if="!loading && products.length === 0"
+      class="alert alert-info text-center py-5"
+    >
+      <h5><i class="bi bi-box-seam me-2"></i>No Products Found</h5>
+      <p>No products have been added to inventory yet.</p>
+    </div>
+
+    <div
+      v-else-if="!loading && products.length > 0 && filteredProducts.length === 0"
+      class="alert alert-warning text-center py-4"
+    >
+      <h5><i class="bi bi-search me-2"></i>No Results Found</h5>
+      <p>No products match your current search and filter criteria.</p>
+      <button @click="clearFilters" class="btn btn-outline-warning btn-sm">
+        Clear Filters
+      </button>
+    </div>
+
+    <div v-else class="ag-theme-alpine">
       <ag-grid-vue
         :rowData="filteredProducts"
         :columnDefs="columnDefs"
         :defaultColDef="defaultColDef"
         @cell-value-changed="onCellValueChanged"
+        :animateRows="true"
+        :pagination="true"
+        :paginationPageSize="20"
+        :suppressCellFocus="false"
+        :enableCellTextSelection="true"
+        @grid-ready="onGridReady"
+        domLayout="normal"
       ></ag-grid-vue>
     </div>
 
-    <!-- Low Inventory Alert -->
-    <div v-if="lowInventoryProducts.length" class="alert alert-warning mt-4">
-      <h5>Low Inventory Alerts</h5>
-      <ul>
+    <div
+      v-if="!loading && lowInventoryProducts.length"
+      class="alert alert-warning mt-4"
+    >
+      <h5><i class="bi bi-exclamation-triangle me-2"></i>Low Inventory Alerts</h5>
+      <ul class="mb-0">
         <li v-for="product in lowInventoryProducts" :key="product.id">
-          {{ product.name }} ({{ product.category }}) - {{ product.stock }} units remaining
-          <small>(Restock recommended)</small>
+          <strong>{{ product.name }}</strong> ({{ product.category }}) -
+          <span class="text-danger">{{ product.stock }} units</span> remaining
+          <small class="text-muted">(Restock recommended)</small>
         </li>
       </ul>
     </div>
@@ -49,78 +93,154 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
-import { AgGridVue } from 'ag-grid-vue3'
-import 'ag-grid-community/styles/ag-grid.css'
-import 'ag-grid-community/styles/ag-theme-alpine.css'
+import { ref, computed, onMounted } from "vue";
+import { AgGridVue } from "ag-grid-vue3";
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-alpine.css";
 
-// Sample data (Amazon/Walmart-like products)
-const products = ref([
-  { id: 1, name: 'Wireless Earbuds', category: 'Electronics', price: 59.99, stock: 15 },
-  { id: 2, name: 'Denim Jeans', category: 'Clothing', price: 39.99, stock: 8 },
-  { id: 3, name: 'Smart Watch', category: 'Electronics', price: 199.99, stock: 5 },
-  { id: 4, name: 'Leather Wallet', category: 'Accessories', price: 29.99, stock: 25 },
-  { id: 5, name: 'T-Shirt', category: 'Clothing', price: 19.99, stock: 12 },
-])
+const products = ref([]);
+const categories = ["Electronics", "Clothing", "Accessories"];
+const searchQuery = ref("");
+const filterCategory = ref("All");
+const sortField = ref("name");
+const sortOrder = ref("asc");
+const loading = ref(false);
+const error = ref("");
 
-const categories = ['All', 'Electronics', 'Clothing', 'Accessories']
-const searchQuery = ref('')
-const filterCategory = ref('All')
-const sortField = ref('name')
-const sortOrder = ref('asc')
+const columnDefs = [
+  {
+    field: "name",
+    headerName: "Product Name",
+    sortable: true,
+    filter: true,
+    width: 200,
+  },
+  {
+    field: "category",
+    headerName: "Category",
+    sortable: true,
+    filter: true,
+    width: 150,
+  },
+  {
+    field: "price",
+    headerName: "Price ($)",
+    sortable: true,
+    width: 120,
+    valueFormatter: (params) => `${Number(params.value || 0).toFixed(2)}`,
+  },
+  {
+    field: "stock",
+    headerName: "Stock",
+    sortable: true,
+    editable: true,
+    width: 100,
+    cellStyle: (params) =>
+      params.value <= 10
+        ? { backgroundColor: "#fff3cd", color: "#856404" }
+        : null,
+  },
+];
 
-// Ag-Grid column definitions
-const columnDefs = ref([
-  { field: 'name', headerName: 'Product Name', sortable: true, filter: true },
-  { field: 'category', headerName: 'Category', sortable: true, filter: true },
-  { field: 'price', headerName: 'Price ($)', sortable: true, valueFormatter: params => `$${params.value.toFixed(2)}` },
-  { field: 'stock', headerName: 'Stock', sortable: true, editable: true },
-])
-
-const defaultColDef = ref({
-  flex: 1,
-  minWidth: 100,
+const defaultColDef = {
   resizable: true,
-})
+  sortable: true,
+  filter: true,
+};
 
-// Computed for filtered and sorted products
 const filteredProducts = computed(() => {
-  let filtered = [...products.value]
-  
-  // Search
-  if (searchQuery.value) {
-    filtered = filtered.filter(product =>
-      product.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    )
+  let filtered = [...products.value];
+  if (searchQuery.value && searchQuery.value.trim()) {
+    const query = searchQuery.value.toLowerCase().trim();
+    filtered = filtered.filter(
+      (product) =>
+        product.name?.toLowerCase().includes(query) ||
+        product.category?.toLowerCase().includes(query)
+    );
   }
-  
-  // Filter by category
-  if (filterCategory.value !== 'All') {
-    filtered = filtered.filter(product => product.category === filterCategory.value)
+  if (filterCategory.value !== "All") {
+    filtered = filtered.filter(
+      (product) => product.category === filterCategory.value
+    );
   }
-  
-  // Sort
+  const field = sortField.value;
+  const order = sortOrder.value === "asc" ? 1 : -1;
   filtered.sort((a, b) => {
-    const field = sortField.value
-    const order = sortOrder.value === 'asc' ? 1 : -1
-    return a[field] > b[field] ? order : -order
-  })
-  
-  return filtered
-})
+    let aVal = a[field];
+    let bVal = b[field];
+    if (typeof aVal === "string") {
+      aVal = aVal.toLowerCase();
+      bVal = bVal.toLowerCase();
+    }
+    if (aVal > bVal) return order;
+    if (aVal < bVal) return -order;
+    return 0;
+  });
+  return filtered;
+});
 
-// Low inventory alert (threshold: 10 units)
-const lowInventoryProducts = computed(() => 
-  products.value.filter(product => product.stock <= 10)
-)
+const lowInventoryProducts = computed(() =>
+  products.value.filter((product) => product.stock <= 10)
+);
 
-// Update inventory on cell edit
+const clearFilters = () => {
+  searchQuery.value = "";
+  filterCategory.value = "All";
+  sortField.value = "name";
+  sortOrder.value = "asc";
+};
+
+const gridApi = ref(null);
+const columnApi = ref(null);
+
+const onGridReady = (params) => {
+  gridApi.value = params.api;
+  columnApi.value = params.columnApi;
+  params.api.sizeColumnsToFit();
+};
+
 const onCellValueChanged = (event) => {
-  const product = products.value.find(p => p.id === event.data.id)
-  if (product && event.colDef.field === 'stock') {
-    product.stock = Number(event.newValue)
+  const product = products.value.find((p) => p.id === event.data.id);
+  if (product && event.colDef.field === "stock") {
+    const newStock = Number(event.newValue);
+    if (!isNaN(newStock) && newStock >= 0) {
+      product.stock = newStock;
+    } else {
+      event.node.setDataValue(event.colDef.field, event.oldValue);
+    }
   }
-}
+};
+
+const fetchProducts = async () => {
+  loading.value = true;
+  error.value = "";
+  try {
+    const res = await fetch("http://localhost:3001/api/products");
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    const data = await res.json();
+    if (Array.isArray(data)) {
+      products.value = data;
+    } else {
+      throw new Error("Invalid data format received from server");
+    }
+  } catch (err) {
+    error.value = `Failed to load products: ${err.message}`;
+  } finally {
+    loading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchProducts();
+  const style = document.createElement('style');
+  style.textContent = `
+    .ag-root-wrapper-body.ag-layout-normal {
+      height: 100%;
+      flex: 0 0 auto;
+    }
+  `;
+  document.head.appendChild(style);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -136,7 +256,10 @@ $text-muted: #6c757d;
   border-radius: 12px;
   border: 1px solid $border-color;
   padding: 1.5rem;
-  transition: all 0.3s ease;
+  max-width: 1200px;
+  min-height: calc(100vh - 4rem);
+  display: flex;
+  flex-direction: column;
 
   &:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -150,19 +273,12 @@ $text-muted: #6c757d;
   }
 
   .inventory-controls {
-    .form-control,
-    .form-select {
-      border-radius: 8px;
-      border: 1px solid $border-color;
-      padding: 0.5rem 1rem;
-      font-size: 0.875rem;
-      transition: all 0.2s ease;
+    background: $light-gray;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid $border-color;
 
-      &:focus {
-        border-color: $primary-color;
-        box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
-      }
-    }
+   
   }
 
   .alert {
@@ -183,11 +299,28 @@ $text-muted: #6c757d;
       font-size: 0.875rem;
     }
   }
+
+  .ag-theme-alpine {
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    height: calc(100vh - 250px);
+    width: 100%;
+    flex-grow: 1;
+
+    .ag-root-wrapper {
+      height: 100%;
+    }
+
+    .ag-root-wrapper-body {
+      height: 100%;
+    }
+  }
 }
 
 @media (max-width: 768px) {
   .inventory-container {
     padding: 1rem;
+    min-height: calc(100vh - 2rem);
 
     .inventory-controls {
       flex-direction: column;
@@ -195,8 +328,12 @@ $text-muted: #6c757d;
 
       .form-control,
       .form-select {
-        width: 100% !important;
+        width: 100%;
       }
+    }
+
+    .ag-theme-alpine {
+      height: calc(100vh - 300px);
     }
   }
 }
