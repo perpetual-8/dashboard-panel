@@ -373,9 +373,8 @@ const editProduct = (product) => {
   const modal = new bootstrap.Modal(document.getElementById("editProductModal"));
   modal.show();
 };
-
-const saveProduct = async () => {
-  const product = editProductData.value;
+ const saveProduct = async () => {
+  const product = { ...editProductData.value }; // Create a copy to avoid direct mutation
   if (product.name && product.category && product.price >= 0 && product.stock >= 0) {
     try {
       const res = await fetch(`http://localhost:3001/api/products/${product.id}`, {
@@ -383,13 +382,42 @@ const saveProduct = async () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(product),
       });
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.message || `HTTP error! status: ${res.status}`);
+      
+      // Update local products array
       const index = products.value.findIndex((p) => p.id === product.id);
-      products.value[index] = product;
+      if (index !== -1) {
+        products.value[index] = { ...product }; // Ensure reactivity
+        products.value = [...products.value]; // Trigger reactivity
+      }
+      
       bootstrap.Modal.getInstance(document.getElementById("editProductModal")).hide();
+      error.value = ""; // Clear any previous errors
     } catch (err) {
       error.value = `Failed to update product: ${err.message}`;
     }
+  } else {
+    error.value = "Please fill all fields correctly.";
+  }
+};
+
+const confirmDeleteProduct = async () => {
+  const id = deleteProductData.value.id;
+  try {
+    const res = await fetch(`http://localhost:3001/api/products/${id}`, {
+      method: "DELETE",
+    });
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.message || `HTTP error! status: ${res.status}`);
+    
+    // Update local products array
+    products.value = products.value.filter((p) => p.id !== id);
+    
+    bootstrap.Modal.getInstance(document.getElementById("deleteProductModal")).hide();
+    error.value = ""; // Clear any previous errors
+  } catch (err) {
+    error.value = `Failed to delete product: ${err.message}`;
   }
 };
 
@@ -399,19 +427,7 @@ const deleteProduct = (product) => {
   modal.show();
 };
 
-const confirmDeleteProduct = async () => {
-  const id = deleteProductData.value.id;
-  try {
-    const res = await fetch(`http://localhost:3001/api/products/${id}`, {
-      method: "DELETE",
-    });
-    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-    products.value = products.value.filter((p) => p.id !== id);
-    bootstrap.Modal.getInstance(document.getElementById("deleteProductModal")).hide();
-  } catch (err) {
-    error.value = `Failed to delete product: ${err.message}`;
-  }
-};
+ 
 
 const fetchProducts = async () => {
   loading.value = true;

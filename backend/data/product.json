@@ -6,21 +6,5 @@
     "stock": 100,
     "category": "Electronics",
     "id": 1748246547669
-  },
-  {
-    "name": "Lenovo Legion",
-    "description": "best choice",
-    "price": 12,
-    "stock": 1,
-    "category": "Electronics",
-    "id": 1748247222744
-  },
-  {
-    "name": "Accer Nitro",
-    "description": "Mid tier laptop",
-    "price": 700,
-    "stock": 9,
-    "category": "Electronics",
-    "id": 1748263165700
   }
 ]
