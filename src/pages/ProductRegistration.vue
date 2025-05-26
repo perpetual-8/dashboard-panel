@@ -79,10 +79,11 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from 'vue'
+ <script setup>
+import { ref } from 'vue'
 
 const categories = ['Electronics', 'Clothing', 'Accessories']
+
 const form = ref({
   name: '',
   description: '',
@@ -91,6 +92,7 @@ const form = ref({
   category: categories[0],
   image: null,
 })
+
 const imagePreview = ref(null)
 const successMessage = ref('')
 const errorMessage = ref('')
@@ -100,36 +102,62 @@ const handleImageUpload = (event) => {
   if (file && file.type.startsWith('image/')) {
     form.value.image = file
     imagePreview.value = URL.createObjectURL(file)
+    errorMessage.value = ''
   } else {
     errorMessage.value = 'Please upload a valid image file'
   }
 }
 
-const submitProduct = () => {
-  if (!form.value.name || !form.value.description || !form.value.price || !form.value.stock || !form.value.category) {
+const submitProduct = async () => {
+  if (
+    !form.value.name ||
+    !form.value.description ||
+    !form.value.price ||
+    !form.value.stock ||
+    !form.value.category
+  ) {
     errorMessage.value = 'All fields are required'
     return
   }
-  
-  // Simulate adding product to inventory (in a real app, this would be a backend API call)
-  const newProduct = {
-    id: Date.now(), // Simple ID generation for demo
+
+  const productData = {
     name: form.value.name,
-    category: form.value.category,
+    description: form.value.description,
     price: form.value.price,
     stock: form.value.stock,
+    category: form.value.category,
   }
-  
-  // Reset form
-  form.value = { name: '', description: '', price: null, stock: null, category: categories[0], image: null }
-  imagePreview.value = null
-  successMessage.value = `${newProduct.name} added to inventory successfully!`
-  errorMessage.value = ''
-  
-  // Simulate inventory update (in a real app, emit event or update shared state)
-  console.log('New Product:', newProduct)
+
+  try {
+    const response = await fetch('http://localhost:3001/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productData),
+    })
+
+    const result = await response.json()
+
+    if (result.success) {
+      successMessage.value = `${result.product.name} added to inventory successfully!`
+      errorMessage.value = ''
+      form.value = {
+        name: '',
+        description: '',
+        price: null,
+        stock: null,
+        category: categories[0],
+        image: null,
+      }
+      imagePreview.value = null
+    } else {
+      errorMessage.value = 'Failed to add product'
+    }
+  } catch (err) {
+    errorMessage.value = 'Error saving product: ' + err.message
+  }
 }
 </script>
+
 
 <style lang="scss" scoped>
 $primary-color: #007bff;
