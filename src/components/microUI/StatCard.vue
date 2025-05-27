@@ -65,12 +65,9 @@ const handleClick = () => {
 </script>
 
 <style lang="scss" scoped>
-$primary-dark: #0056b3;
-$success-color: #28a745;
-$danger-color: #dc3545;
-$light-gray: #f8f9fa;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
+$primary-dark: #0056b3; //diff
+ 
+
 
 .stat-card {
   background: white;

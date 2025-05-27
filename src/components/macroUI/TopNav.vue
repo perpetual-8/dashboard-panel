@@ -53,24 +53,18 @@ const getPageTitle = () => {
 };
 </script>
 <style scoped lang="scss">
-$color-bg: #fff;
-$color-border: #dee2e6;
-$color-text: #495057;
-$color-text-muted: #6c757d;
-$color-hover-bg: #f8f9fa;
 
-$radius: 0.375rem;
 
-$font-size-base: 1.25rem;
-$font-size-title: 1.25rem;
-$font-weight-title: 600;
+$font-size-base: 1.25rem; //di
+$font-size-title: 1.25rem; // di
+$font-weight-title: 600; //di
 
-$spacing-y-sm: 0.5rem;
-$spacing-y-md: 0.75rem;
-$spacing-x-sm: 0.75rem;
-$spacing-x-md: 1rem;
+$spacing-y-sm: 0.5rem; // di
+$spacing-y-md: 0.75rem; //di
+$spacing-x-sm: 0.75rem;//di
+$spacing-x-md: 1rem;// di
 
-$min-height-nav: 60px;
+$min-height-nav: 60px; //di
 
 .top-nav {
   background-color: $color-bg;

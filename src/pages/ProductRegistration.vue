@@ -329,11 +329,7 @@ const submitProduct = async () => {
 </script>
 
 <style lang="scss" scoped>
-$success-color: #28a745;
-$danger-color: #dc3545;
-$light-gray: #f8f9fa;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
+
 
 .product-registration-wrapper {
   min-height: 100vh;

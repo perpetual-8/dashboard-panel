@@ -24,14 +24,8 @@ defineEmits(['update:modelValue']);
 
 <style scoped lang="scss">
 
-$color-text: #2c3e50;
-$color-border: #ced4da;
-$color-focus: #007bff;
-$color-error: #dc3545;
-$color-bg: #ffffff;
+$color-text: #2c3e50; //dif
 
-$font-size-base: 1rem;
-$border-radius: 6px;
 
 // Base Select Styling
 .base-select-group {

@@ -20,15 +20,9 @@ defineProps({
 defineEmits(['update:modelValue']);
 </script>
 <style scoped lang="scss">
-    $color-text: #2c3e50;
-$color-border: #ced4da;
-$color-focus: #007bff;
-$color-error: #dc3545;
-$color-bg: #fff;
+$color-text: #2c3e50;
 
-$font-size-base: 1rem;
-$font-size-label: 0.95rem;
-$border-radius: 6px;
+
 
 .base-input-group {
   display: flex;

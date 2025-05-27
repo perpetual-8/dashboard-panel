@@ -57,6 +57,13 @@ onUnmounted(() => {
 </script>
 
  <style scoped lang="scss">
+
+$spacing-sm: 0.75rem;  // custom small spacing variable
+$spacing-md: 1rem;     // custom medium spacing variable
+$spacing-lg: 1.5rem;   // custom large spacing variable
+
+$z-overlay: 1040;
+
 .admin-layout {
   display: flex;
   min-height: 100vh;
@@ -67,26 +74,26 @@ onUnmounted(() => {
   flex: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0;  
+  min-width: 0;
   transition: margin-left 0.3s ease;
 }
 
 .content-area {
   flex: 1;
-  padding: 1rem;
-  background-color: #f8f9fa;
+  padding: $spacing-md;
+  background-color: $light-gray;
   overflow-x: auto;
 
   @include respond-below(md) {
-    padding: 0.75rem;
+    padding: $spacing-sm;
   }
 
   @include respond-between(md, lg) {
-    padding: 1rem;
+    padding: $spacing-md;
   }
 
   @include respond-above(lg) {
-    padding: 1.5rem;
+    padding: $spacing-lg;
   }
 }
 
@@ -97,7 +104,7 @@ onUnmounted(() => {
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1040;
+  z-index: $z-overlay;
   display: none;
 
   @include respond-below(md) {
@@ -105,3 +112,4 @@ onUnmounted(() => {
   }
 }
 </style>
+

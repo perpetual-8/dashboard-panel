@@ -191,22 +191,14 @@ const setTimePeriod = (period) => {
 </script>
 
 <style lang="scss" scoped>
-$success-color: #28a745;
-$danger-color: #dc3545;
-$light-gray: #f8f9fa;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
 
-$radius: 0.375rem;
-$font-weight-semibold: 600;
+$font-weight-semibold: 600;//diff
 
-$spacing-xs: 0.25rem;
-$spacing-sm: 0.5rem;
-$spacing-md: 1rem;
-$spacing-lg: 1.5rem;
-
-$box-shadow-hover: 0 4px 15px rgba(0, 0, 0, 0.1);
-$box-shadow-active: 0 2px 4px rgba($primary-color, 0.3);
+$spacing-xs: 0.25rem;//diff
+$spacing-sm: 0.5rem;//diff
+$spacing-md: 1rem;//diff
+$spacing-lg: 1.5rem; //diff
+ 
 
 .chart-container {
   background: #fff;
@@ -218,7 +210,7 @@ $box-shadow-active: 0 2px 4px rgba($primary-color, 0.3);
 
   &:hover {
     box-shadow: $box-shadow-hover;
-    border-color: $color-primary;
+    border-color: $primary-color;
   }
 
   .chart-header {

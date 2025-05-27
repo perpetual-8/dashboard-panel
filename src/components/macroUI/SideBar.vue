@@ -71,17 +71,8 @@ const navItems = [
 </script>
 
  <style scoped lang="scss">
-$color-bg: #fff;
-$color-border: #dee2e6;
-$color-text: #495057;
-$color-text-muted: #6c757d;
-$color-hover-bg: #f8f9fa;
-$color-active-bg: #0d6efd;
-$color-active-text: #fff;
 
-$radius: 0.375rem;
-$radius-circle: 50%;
-
+// div 
 $font-size-base: 1.1rem;
 $font-size-icon: 1.1rem;
 $font-size-collapse-btn: 0.75rem;
@@ -92,7 +83,7 @@ $sidebar-collapsed-width: 70px;
 $sidebar-collapsed-width-md-lg: 60px;
 
 $btn-collapse-size: 24px;
-
+// dif //
 .sidebar {
   width: $sidebar-width;
   background-color: $color-bg;
