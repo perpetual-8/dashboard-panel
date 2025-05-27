@@ -19,13 +19,11 @@ defineProps({
   invalid: Boolean,
   modelValue: [String, Number], // Support both String and Number
 });
-defineEmits(['update:modelValue']);
+defineEmits(["update:modelValue"]);
 </script>
 
 <style scoped lang="scss">
-
 $color-text: #2c3e50; //dif
-
 
 // Base Select Styling
 .base-select-group {
@@ -37,7 +35,7 @@ $color-text: #2c3e50; //dif
 .base-label {
   font-weight: 500;
   font-size: 0.95rem;
-  color: $color-text;
+  color: $text-color;
 }
 
 .base-select {

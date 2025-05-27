@@ -330,8 +330,8 @@ const submitProduct = async () => {
 
 <style lang="scss" scoped>
 .product-registration-wrapper {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  min-height: 80vh;
+  // background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
   padding: 2rem 0;
 
   @include respond-below(md) {
@@ -360,13 +360,13 @@ const submitProduct = async () => {
 
   &:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
+    
   }
 
   h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: #2c3e50;
+    font-size:$head-font-size;
+    font-weight: $head-font-weight;
+    color: $head-color;
     margin-bottom: 1.5rem;
 
     @include respond-below(md) {
@@ -376,9 +376,9 @@ const submitProduct = async () => {
 
   .product-form {
     .form-label {
-      font-size: 0.9rem;
+      font-size: $font-size-label;
       font-weight: 600;
-      color: #2c3e50;
+      color: $text-color;
       margin-bottom: 0.5rem;
     }
 
@@ -417,7 +417,7 @@ const submitProduct = async () => {
       }
 
       &:hover {
-        transform: translateY(-2px);
+        
         box-shadow: 0 4px 15px rgba($primary-color, 0.4);
       }
     }
@@ -454,13 +454,13 @@ const submitProduct = async () => {
 
   &:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
+    
   }
 
   h3 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3e50;
+    font-size: $head-font-size;
+    font-weight: $head-font-weight;
+    color: $text-color;
     margin-bottom: 1.5rem;
 
     @include respond-below(md) {

@@ -38,7 +38,7 @@
 
     <!-- Category Revenue -->
     <div class="mt-5">
-      <h5 class="mb-3">Category Revenue</h5>
+       
       <CategoryRevenue />
     </div>
   </div>

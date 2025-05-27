@@ -1,6 +1,6 @@
 <template>
   <div class="inventory-container container mt-4">
-    <h2 class="mb-4">Inventory Management</h2>
+    <h2 class="mb-4">Manage Products</h2>
 
     <div class="inventory-controls d-flex flex-wrap gap-3 mb-4">
       <div class="control-group flex-grow-1" style="min-width: 200px">

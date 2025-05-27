@@ -53,16 +53,14 @@ const getPageTitle = () => {
 };
 </script>
 <style scoped lang="scss">
-
-
 $font-size-base: 1.25rem; //di
 $font-size-title: 1.25rem; // di
 $font-weight-title: 600; //di
 
 $spacing-y-sm: 0.5rem; // di
 $spacing-y-md: 0.75rem; //di
-$spacing-x-sm: 0.75rem;//di
-$spacing-x-md: 1rem;// di
+$spacing-x-sm: 0.75rem; //di
+$spacing-x-md: 1rem; // di
 
 $min-height-nav: 60px; //di
 
@@ -95,18 +93,18 @@ $min-height-nav: 60px; //di
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: $color-text-muted;
+  color: $text-muted;
   cursor: pointer;
   padding: 0.25rem;
   margin-right: 1rem;
 
   &:hover {
-    color: $color-text;
+    color: $text-color;
   }
 }
 
 .nav-title h5 {
-  color: $color-text;
+  color: $text-color;
   font-weight: $font-weight-title;
 
   @include respond-below(sm) {
@@ -124,7 +122,7 @@ $min-height-nav: 60px; //di
 .btn-user {
   background: none;
   border: none;
-  color: $color-text-muted;
+  color: $text-muted;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: $radius;
@@ -135,7 +133,7 @@ $min-height-nav: 60px; //di
 
   &:hover {
     background-color: $color-hover-bg;
-    color: $color-text;
+    color: $text-color;
   }
 }
 
