@@ -494,8 +494,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-
-
 .inventory-container {
   background: white;
   border-radius: 12px;
@@ -509,7 +507,7 @@ onMounted(() => {
 
   &:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    // border-color: $color-primary;
+    // border-color: $primary-color;
   }
 
   h2 {

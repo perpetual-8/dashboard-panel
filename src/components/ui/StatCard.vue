@@ -66,8 +66,6 @@ const handleClick = () => {
 
 <style lang="scss" scoped>
 $primary-dark: #0056b3; //diff
- 
-
 
 .stat-card {
   background: white;
@@ -97,7 +95,7 @@ $primary-dark: #0056b3; //diff
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: $color-primary;
+    border-color: $primary-color;
 
     &:before {
       opacity: 1;
@@ -108,7 +106,7 @@ $primary-dark: #0056b3; //diff
     }
 
     .stat-value {
-      color: $color-primary;
+      color: $primary-color;
     }
   }
 

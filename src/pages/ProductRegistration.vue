@@ -329,8 +329,6 @@ const submitProduct = async () => {
 </script>
 
 <style lang="scss" scoped>
-
-
 .product-registration-wrapper {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
@@ -393,7 +391,7 @@ const submitProduct = async () => {
       transition: all 0.3s ease;
 
       &:focus {
-        border-color: $color-primary;
+        border-color: $primary-color;
         box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
       }
     }
@@ -491,7 +489,7 @@ const submitProduct = async () => {
   }
 
   &.drag-over {
-    border-color: $color-primary;
+    border-color: $primary-color;
     background: rgba($primary-color, 0.05);
     transform: scale(1.02);
   }
@@ -503,14 +501,14 @@ const submitProduct = async () => {
   }
 
   &:hover:not(.has-image) {
-    border-color: $color-primary;
+    border-color: $primary-color;
     background: rgba($primary-color, 0.02);
   }
 }
 
 .upload-content {
   .upload-icon {
-    color: $color-primary;
+    color: $primary-color;
     margin-bottom: 1rem;
 
     svg {
@@ -541,7 +539,7 @@ const submitProduct = async () => {
     font-size: 1rem;
 
     .click-text {
-      color: $color-primary;
+      color: $primary-color;
       font-weight: 600;
     }
   }

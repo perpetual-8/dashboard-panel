@@ -191,14 +191,12 @@ const setTimePeriod = (period) => {
 </script>
 
 <style lang="scss" scoped>
+$font-weight-semibold: 600; //diff
 
-$font-weight-semibold: 600;//diff
-
-$spacing-xs: 0.25rem;//diff
-$spacing-sm: 0.5rem;//diff
-$spacing-md: 1rem;//diff
+$spacing-xs: 0.25rem; //diff
+$spacing-sm: 0.5rem; //diff
+$spacing-md: 1rem; //diff
 $spacing-lg: 1.5rem; //diff
- 
 
 .chart-container {
   background: #fff;
@@ -272,11 +270,11 @@ $spacing-lg: 1.5rem; //diff
 
         &:hover {
           background: #fff;
-          color: $color-primary;
+          color: $primary-color;
         }
 
         &.active {
-          background: $color-primary;
+          background: $primary-color;
           color: #fff;
           box-shadow: $box-shadow-active;
         }
