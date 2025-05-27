@@ -233,8 +233,8 @@
 import { ref, computed, onMounted } from "vue";
 import { AgGridVue } from "ag-grid-vue3";
 import * as bootstrap from "bootstrap";
-import BaseInput from "@/components/microUI/BaseInput.vue";
-import BaseSelect from "@/components/microUI/BaseSelect.vue";
+import BaseInput from "@/components/ui/BaseInput.vue";
+import BaseSelect from "@/components/ui/BaseSelect.vue";
 
 const products = ref([]);
 const categories = ["Electronics", "Clothing", "Accessories"];

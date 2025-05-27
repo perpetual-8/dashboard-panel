@@ -26,8 +26,8 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
-import Sidebar from "../components/macroUI/SideBar.vue"
-import TopNav from "../components/macroUI/TopNav.vue"
+import Sidebar from "../components/ui/SideBar.vue"
+import TopNav from "../components/ui/TopNav.vue"
 
 // Mobile menu state
 const isMobileMenuOpen = ref(false)
