@@ -283,7 +283,7 @@ const columnDefs = [
   {
     field: "actions",
     headerName: "Actions",
-    width: 150,
+    width: 100,
     cellRenderer: (params) => {
       const div = document.createElement("div");
       div.innerHTML = `

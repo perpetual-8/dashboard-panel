@@ -9,5 +9,5 @@
 </template>
 
 <script setup>
-const items = ['Dashboard', 'Products', 'Orders', 'Customers', 'Discounts', 'App Store']
+const items = [];
 </script>
