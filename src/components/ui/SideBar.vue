@@ -83,31 +83,8 @@ $sidebar-width-md-lg: 200px;
 $sidebar-collapsed-width: 70px;
 $sidebar-collapsed-width-md-lg: 60px;
 
-$btn-collapse-size: 24px;
-// dif //
-// .sidebar {
-//   width: $sidebar-width;
-//   background-color: $color-bg;
-//   border-right: 1px solid $color-border;
-//   display: flex;
-//   flex-direction: column;
-//   position: relative;
-//   transition: width 0.3s ease;
-//   z-index: 1050;
-
-//   @include respond-below(md) {
-//     position: fixed;
-//     top: 0;
-//     left: -$sidebar-width;
-//     height: 100vh;
-//     transition: left 0.3s ease;
-//     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-//   }
-
-//   @include respond-between(md, lg) {
-//     width: $sidebar-width-md-lg;
-//   }
-// }
+$btn-collapse-size: 35px;
+ 
 .sidebar {
   width: $sidebar-width;
   background-color: $color-bg;
@@ -226,7 +203,7 @@ $btn-collapse-size: 24px;
 
 .btn-collapse {
   position: absolute;
-  right: -12px;
+  right: -18px;
   top: 30%;
   transform: translateY(-50%);
   background: $color-bg;
@@ -243,8 +220,8 @@ $btn-collapse-size: 24px;
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: $color-hover-bg;
-    color: $text-color;
+    background-color: $primary-color;
+    color: white;
   }
 }
 </style>
