@@ -7,8 +7,8 @@
     }"
   >
     <div class="sidebar-header">
-      <h4 class="sidebar-title" v-show="!isCollapsed">Commerce Admin</h4>
-      <h4 class="sidebar-title-collapsed" v-show="isCollapsed">CA</h4>
+      <h4 class="sidebar-title" v-show="!isCollapsed">Delta Delta</h4>
+      <h4 class="sidebar-title-collapsed" v-show="isCollapsed">DD</h4>
 
       <button
         class="btn-close-mobile d-md-none"
