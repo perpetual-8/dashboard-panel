@@ -81,7 +81,7 @@ $z-overlay: 1040;
 .content-area {
   flex: 1;
   padding: $spacing-md;
-  // background-color: $light-gray;
+   
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
 
   overflow-x: auto;
@@ -97,7 +97,6 @@ $z-overlay: 1040;
   @include respond-above(lg) {
     padding: $spacing-lg;
   }
-  
 }
 
 .mobile-overlay {
