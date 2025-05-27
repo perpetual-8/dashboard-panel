@@ -19,8 +19,17 @@ defineProps({
 });
 defineEmits(['update:modelValue']);
 </script>
+<style scoped lang="scss">
+    $color-text: #2c3e50;
+$color-border: #ced4da;
+$color-focus: #007bff;
+$color-error: #dc3545;
+$color-bg: #fff;
 
-<style scoped>
+$font-size-base: 1rem;
+$font-size-label: 0.95rem;
+$border-radius: 6px;
+
 .base-input-group {
   display: flex;
   flex-direction: column;
@@ -29,26 +38,28 @@ defineEmits(['update:modelValue']);
 
 .base-label {
   font-weight: 500;
-  font-size: 0.95rem;
-  color: #2c3e50;
+  font-size: $font-size-label;
+  color: $color-text;
 }
 
 .base-input {
   padding: 0.5rem 0.75rem;
-  border: 1px solid #ced4da;
-  border-radius: 6px;
+  border: 1px solid $color-border;
+  border-radius: $border-radius;
   width: 100%;
-  font-size: 1rem;
+  font-size: $font-size-base;
+  background-color: $color-bg;
   transition: border-color 0.2s;
-}
 
-.base-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
+  &:focus {
+    outline: none;
+    border-color: $color-focus;
+    box-shadow: 0 0 0 2px rgba($color-focus, 0.25);
+  }
 
-.is-invalid {
-  border-color: #dc3545;
+  &.is-invalid {
+    border-color: $color-error;
+  }
 }
 </style>
+

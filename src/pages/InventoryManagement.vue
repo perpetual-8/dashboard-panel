@@ -494,7 +494,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-$primary-color: #007bff;
 $success-color: #28a745;
 $danger-color: #dc3545;
 $light-gray: #f8f9fa;
@@ -514,7 +513,7 @@ $text-muted: #6c757d;
 
   &:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    // border-color: $primary-color;
+    // border-color: $color-primary;
   }
 
   h2 {

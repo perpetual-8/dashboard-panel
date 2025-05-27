@@ -1,10 +1,8 @@
-
- 
 <template>
   <header class="top-nav">
     <div class="nav-content">
       <!-- Mobile menu toggle -->
-      <button 
+      <button
         class="btn-menu-toggle d-md-none"
         @click="$emit('toggle-menu')"
         aria-label="Toggle navigation"
@@ -23,7 +21,7 @@
         <button class="btn-nav-action" title="Notifications">
           <i class="bi bi-bell"></i>
         </button>
-        
+
         <!-- User menu -->
         <div class="user-menu">
           <button class="btn-user" title="User menu">
@@ -37,28 +35,46 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
 // Emits
-defineEmits(['toggle-menu'])
+defineEmits(["toggle-menu"]);
 
-const route = useRoute()
+const route = useRoute();
 
 const getPageTitle = () => {
   const titles = {
-    '/revenue': 'Revenue Analysis',
-    '/inventory': 'Inventory Management',
-    '/register': 'Register Product'
-  }
-  return titles[route.path] || 'Dashboard'
-}
+    "/revenue": "Revenue Analysis",
+    "/inventory": "Inventory Management",
+    "/register": "Register Product",
+  };
+  return titles[route.path] || "Dashboard";
+};
 </script>
-
 <style scoped lang="scss">
+$color-bg: #fff;
+$color-border: #dee2e6;
+$color-text: #495057;
+$color-text-muted: #6c757d;
+$color-hover-bg: #f8f9fa;
+
+$radius: 0.375rem;
+
+$font-size-base: 1.25rem;
+$font-size-title: 1.25rem;
+$font-weight-title: 600;
+
+$spacing-y-sm: 0.5rem;
+$spacing-y-md: 0.75rem;
+$spacing-x-sm: 0.75rem;
+$spacing-x-md: 1rem;
+
+$min-height-nav: 60px;
+
 .top-nav {
-  background-color: white;
-  border-bottom: 1px solid #dee2e6;
+  background-color: $color-bg;
+  border-bottom: 1px solid $color-border;
   padding: 0;
   position: sticky;
   top: 0;
@@ -69,15 +85,15 @@ const getPageTitle = () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1rem;
-  min-height: 60px;
+  padding: $spacing-y-md $spacing-x-md;
+  min-height: $min-height-nav;
 
   @include respond-below(sm) {
-    padding: 0.5rem 0.75rem;
+    padding: $spacing-y-sm $spacing-x-sm;
   }
 
   @include respond-between(sm, md) {
-    padding: 0.75rem 1rem;
+    padding: $spacing-y-md $spacing-x-md;
   }
 }
 
@@ -85,19 +101,19 @@ const getPageTitle = () => {
   background: none;
   border: none;
   font-size: 1.5rem;
-  color: #6c757d;
+  color: $color-text-muted;
   cursor: pointer;
   padding: 0.25rem;
   margin-right: 1rem;
 
   &:hover {
-    color: #495057;
+    color: $color-text;
   }
 }
 
 .nav-title h5 {
-  color: #495057;
-  font-weight: 600;
+  color: $color-text;
+  font-weight: $font-weight-title;
 
   @include respond-below(sm) {
     font-size: 1rem;
@@ -110,37 +126,28 @@ const getPageTitle = () => {
   gap: 0.5rem;
 }
 
-.btn-nav-action {
+.btn-nav-action,
+.btn-user {
   background: none;
   border: none;
-  font-size: 1.25rem;
-  color: #6c757d;
+  color: $color-text-muted;
   cursor: pointer;
   padding: 0.5rem;
-  border-radius: 0.375rem;
+  border-radius: $radius;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  font-size: $font-size-base;
 
   &:hover {
-    background-color: #f8f9fa;
-    color: #495057;
+    background-color: $color-hover-bg;
+    color: $color-text;
   }
 }
 
 .btn-user {
-  background: none;
-  border: none;
-  color: #6c757d;
-  cursor: pointer;
-  padding: 0.5rem;
-  border-radius: 0.375rem;
-  display: flex;
-  align-items: center;
-  font-size: 1.25rem;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background-color: #f8f9fa;
-    color: #495057;
+  span {
+    margin-left: 0.5rem;
   }
 }
 </style>

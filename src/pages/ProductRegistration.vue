@@ -19,7 +19,9 @@
                 />
               </div>
               <div class="mb-3">
-                <label for="productDescription" class="form-label">Description</label>
+                <label for="productDescription" class="form-label"
+                  >Description</label
+                >
                 <textarea
                   v-model="form.description"
                   class="form-control"
@@ -43,7 +45,9 @@
                   />
                 </div>
                 <div class="col-sm-6">
-                  <label for="productStock" class="form-label">Initial Stock</label>
+                  <label for="productStock" class="form-label"
+                    >Initial Stock</label
+                  >
                   <input
                     v-model.number="form.stock"
                     type="number"
@@ -56,14 +60,23 @@
               </div>
               <div class="mb-3">
                 <label for="productCategory" class="form-label">Category</label>
-                <select v-model="form.category" class="form-select" id="productCategory" required>
-                  <option v-for="cat in categories" :key="cat" :value="cat">{{ cat }}</option>
+                <select
+                  v-model="form.category"
+                  class="form-select"
+                  id="productCategory"
+                  required
+                >
+                  <option v-for="cat in categories" :key="cat" :value="cat">
+                    {{ cat }}
+                  </option>
                 </select>
               </div>
-              
+
               <!-- Mobile Image Upload (hidden on larger screens) -->
               <div class="mb-3 mobile-image-upload">
-                <label for="productImage" class="form-label">Product Image</label>
+                <label for="productImage" class="form-label"
+                  >Product Image</label
+                >
                 <input
                   type="file"
                   class="form-control"
@@ -72,7 +85,7 @@
                   @change="handleImageUpload"
                 />
               </div>
-              
+
               <button type="submit" class="btn btn-primary">Add Product</button>
               <div v-if="successMessage" class="alert alert-success mt-3">
                 {{ successMessage }}
@@ -88,7 +101,7 @@
         <div class="col-lg-6 col-md-12">
           <div class="image-uploader-container">
             <h3 class="mb-4">Product Image</h3>
-            <div 
+            <div
               class="drag-drop-area"
               :class="{ 'drag-over': isDragOver, 'has-image': imagePreview }"
               @dragover.prevent="handleDragOver"
@@ -103,46 +116,85 @@
                 accept="image/*"
                 @change="handleImageUpload"
               />
-              
+
               <div v-if="!imagePreview" class="upload-content">
                 <div class="upload-icon">
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="7,10 12,15 17,10"/>
-                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7,10 12,15 17,10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
                 </div>
                 <h4>Drag & Drop Image Here</h4>
                 <p>or <span class="click-text">click to browse</span></p>
-                <small class="text-muted">Supports: JPG, PNG, GIF (Max 5MB)</small>
+                <small class="text-muted"
+                  >Supports: JPG, PNG, GIF (Max 5MB)</small
+                >
               </div>
-              
+
               <div v-if="imagePreview" class="image-preview-container">
-                <img :src="imagePreview" alt="Product Preview" class="image-preview" />
+                <img
+                  :src="imagePreview"
+                  alt="Product Preview"
+                  class="image-preview"
+                />
                 <div class="image-overlay">
-                  <button type="button" class="btn btn-outline-light btn-sm" @click.stop="removeImage">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <polyline points="3,6 5,6 21,6"/>
-                      <path d="m19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"/>
+                  <button
+                    type="button"
+                    class="btn btn-outline-light btn-sm"
+                    @click.stop="removeImage"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <polyline points="3,6 5,6 21,6" />
+                      <path
+                        d="m19,6v14a2,2,0,0,1-2,2H7a2,2,0,0,1-2-2V6m3,0V4a2,2,0,0,1,2-2h4a2,2,0,0,1,2,2v2"
+                      />
                     </svg>
                     Remove
                   </button>
-                  <button type="button" class="btn btn-outline-light btn-sm" @click.stop="triggerFileInput">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                      <polyline points="7,10 12,15 17,10"/>
-                      <line x1="12" y1="15" x2="12" y2="3"/>
+                  <button
+                    type="button"
+                    class="btn btn-outline-light btn-sm"
+                    @click.stop="triggerFileInput"
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7,10 12,15 17,10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
                     </svg>
                     Replace
                   </button>
                 </div>
               </div>
             </div>
-            
+
             <div class="image-info mt-3">
               <div v-if="form.image" class="file-info">
                 <strong>{{ form.image.name }}</strong>
-                <span class="text-muted">({{ formatFileSize(form.image.size) }})</span>
+                <span class="text-muted"
+                  >({{ formatFileSize(form.image.size) }})</span
+                >
               </div>
             </div>
           </div>
@@ -153,77 +205,78 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from "vue";
 
-const categories = ['Electronics', 'Clothing', 'Accessories']
+const categories = ["Electronics", "Clothing", "Accessories"];
 
 const form = ref({
-  name: '',
-  description: '',
+  name: "",
+  description: "",
   price: null,
   stock: null,
   category: categories[0],
   image: null,
-})
+});
 
-const imagePreview = ref(null)
-const successMessage = ref('')
-const errorMessage = ref('')
-const isDragOver = ref(false)
-const fileInput = ref(null)
+const imagePreview = ref(null);
+const successMessage = ref("");
+const errorMessage = ref("");
+const isDragOver = ref(false);
+const fileInput = ref(null);
 
 const handleImageUpload = (event) => {
-  const file = event.target.files[0]
-  processImageFile(file)
-}
+  const file = event.target.files[0];
+  processImageFile(file);
+};
 
 const handleDragOver = (event) => {
-  isDragOver.value = true
-}
+  isDragOver.value = true;
+};
 
 const handleDragLeave = (event) => {
-  isDragOver.value = false
-}
+  isDragOver.value = false;
+};
 
 const handleDrop = (event) => {
-  isDragOver.value = false
-  const file = event.dataTransfer.files[0]
-  processImageFile(file)
-}
+  isDragOver.value = false;
+  const file = event.dataTransfer.files[0];
+  processImageFile(file);
+};
 
 const processImageFile = (file) => {
-  if (file && file.type.startsWith('image/')) {
-    if (file.size > 5 * 1024 * 1024) { // 5MB limit
-      errorMessage.value = 'File size must be less than 5MB'
-      return
+  if (file && file.type.startsWith("image/")) {
+    if (file.size > 5 * 1024 * 1024) {
+      // 5MB limit
+      errorMessage.value = "File size must be less than 5MB";
+      return;
     }
-    form.value.image = file
-    imagePreview.value = URL.createObjectURL(file)
-    errorMessage.value = ''
+    form.value.image = file;
+    imagePreview.value = URL.createObjectURL(file);
+    errorMessage.value = "";
   } else {
-    errorMessage.value = 'Please upload a valid image file'
+    errorMessage.value = "Please upload a valid image file";
   }
-}
+};
 
 const triggerFileInput = () => {
-  fileInput.value.click()
-}
+  fileInput.value.click();
+};
 
 const removeImage = () => {
-  form.value.image = null
-  imagePreview.value = null
+  form.value.image = null;
+  imagePreview.value = null;
   if (fileInput.value) {
-    fileInput.value.value = ''
+    fileInput.value.value = "";
   }
-}
+};
 
 const formatFileSize = (bytes) => {
-  if (bytes === 0) return '0 Bytes'
-  const k = 1024
-  const sizes = ['Bytes', 'KB', 'MB', 'GB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-}
+  if (bytes === 0) return "0 Bytes";
+  const k = 1024;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+};
 
 const submitProduct = async () => {
   if (
@@ -233,8 +286,8 @@ const submitProduct = async () => {
     !form.value.stock ||
     !form.value.category
   ) {
-    errorMessage.value = 'All fields are required'
-    return
+    errorMessage.value = "All fields are required";
+    return;
   }
 
   const productData = {
@@ -243,46 +296,44 @@ const submitProduct = async () => {
     price: form.value.price,
     stock: form.value.stock,
     category: form.value.category,
-  }
+  };
 
   try {
-    const response = await fetch('http://localhost:3001/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("http://localhost:3001/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productData),
-    })
+    });
 
-    const result = await response.json()
+    const result = await response.json();
 
     if (result.success) {
-      successMessage.value = `${result.product.name} added to inventory successfully!`
-      errorMessage.value = ''
+      successMessage.value = `${result.product.name} added to inventory successfully!`;
+      errorMessage.value = "";
       form.value = {
-        name: '',
-        description: '',
+        name: "",
+        description: "",
         price: null,
         stock: null,
         category: categories[0],
         image: null,
-      }
-      imagePreview.value = null
+      };
+      imagePreview.value = null;
     } else {
-      errorMessage.value = 'Failed to add product'
+      errorMessage.value = "Failed to add product";
     }
   } catch (err) {
-    errorMessage.value = 'Error saving product: ' + err.message
+    errorMessage.value = "Error saving product: " + err.message;
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-$primary-color: #007bff;
 $success-color: #28a745;
 $danger-color: #dc3545;
 $light-gray: #f8f9fa;
 $border-color: #e9ecef;
 $text-muted: #6c757d;
- 
 
 .product-registration-wrapper {
   min-height: 100vh;
@@ -346,13 +397,17 @@ $text-muted: #6c757d;
       transition: all 0.3s ease;
 
       &:focus {
-        border-color: $primary-color;
+        border-color: $color-primary;
         box-shadow: 0 0 0 4px rgba($primary-color, 0.1);
       }
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, $primary-color 0%, darken($primary-color, 15%) 100%);
+      background: linear-gradient(
+        135deg,
+        $primary-color 0%,
+        darken($primary-color, 15%) 100%
+      );
       border: none;
       padding: 0.875rem 2rem;
       border-radius: 10px;
@@ -440,7 +495,7 @@ $text-muted: #6c757d;
   }
 
   &.drag-over {
-    border-color: $primary-color;
+    border-color: $color-primary;
     background: rgba($primary-color, 0.05);
     transform: scale(1.02);
   }
@@ -452,16 +507,16 @@ $text-muted: #6c757d;
   }
 
   &:hover:not(.has-image) {
-    border-color: $primary-color;
+    border-color: $color-primary;
     background: rgba($primary-color, 0.02);
   }
 }
 
 .upload-content {
   .upload-icon {
-    color: $primary-color;
+    color: $color-primary;
     margin-bottom: 1rem;
-    
+
     svg {
       width: 64px;
       height: 64px;
@@ -490,7 +545,7 @@ $text-muted: #6c757d;
     font-size: 1rem;
 
     .click-text {
-      color: $primary-color;
+      color: $color-primary;
       font-weight: 600;
     }
   }
@@ -571,13 +626,13 @@ $text-muted: #6c757d;
     }
   }
 }
- 
+
 .mobile-image-upload {
   @include respond-above(lg) {
     display: none;
   }
 }
- 
+
 .row {
   margin: 0 -15px;
 

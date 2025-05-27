@@ -70,11 +70,33 @@ const navItems = [
 ]
 </script>
 
-<style scoped lang="scss">
+ <style scoped lang="scss">
+$color-bg: #fff;
+$color-border: #dee2e6;
+$color-text: #495057;
+$color-text-muted: #6c757d;
+$color-hover-bg: #f8f9fa;
+$color-active-bg: #0d6efd;
+$color-active-text: #fff;
+
+$radius: 0.375rem;
+$radius-circle: 50%;
+
+$font-size-base: 1.1rem;
+$font-size-icon: 1.1rem;
+$font-size-collapse-btn: 0.75rem;
+
+$sidebar-width: 240px;
+$sidebar-width-md-lg: 200px;
+$sidebar-collapsed-width: 70px;
+$sidebar-collapsed-width-md-lg: 60px;
+
+$btn-collapse-size: 24px;
+
 .sidebar {
-  width: 240px;
-  background-color: #fff;
-  border-right: 1px solid #dee2e6;
+  width: $sidebar-width;
+  background-color: $color-bg;
+  border-right: 1px solid $color-border;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -84,14 +106,14 @@ const navItems = [
   @include respond-below(md) {
     position: fixed;
     top: 0;
-    left: -240px;
+    left: -$sidebar-width;
     height: 100vh;
     transition: left 0.3s ease;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
   }
 
   @include respond-between(md, lg) {
-    width: 200px;
+    width: $sidebar-width-md-lg;
   }
 }
 
@@ -102,16 +124,16 @@ const navItems = [
 }
 
 .sidebar-collapsed {
-  width: 70px;
+  width: $sidebar-collapsed-width;
 
   @include respond-between(md, lg) {
-    width: 60px;
+    width: $sidebar-collapsed-width-md-lg;
   }
 }
 
 .sidebar-header {
   padding: 1rem;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid $color-border;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -121,16 +143,16 @@ const navItems = [
 .sidebar-title,
 .sidebar-title-collapsed {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: $font-size-base;
   font-weight: 600;
-  color: #495057;
+  color: $color-text;
 }
 
 .btn-close-mobile {
   background: none;
   border: none;
   font-size: 1.2rem;
-  color: #6c757d;
+  color: $color-text-muted;
   cursor: pointer;
   padding: 0.25rem;
 }
@@ -154,25 +176,25 @@ const navItems = [
   display: flex;
   align-items: center;
   padding: 0.75rem 1rem;
-  color: #6c757d;
+  color: $color-text-muted;
   text-decoration: none;
   transition: all 0.2s ease;
-  border-radius: 0.375rem;
+  border-radius: $radius;
   margin: 0 0.5rem;
 
   &:hover {
-    background-color: #f8f9fa;
-    color: #495057;
+    background-color: $color-hover-bg;
+    color: $color-text;
   }
 
   &.router-link-active {
-    background-color: #0d6efd;
-    color: white;
+    background-color: $color-active-bg;
+    color: $color-active-text;
   }
 }
 
 .nav-icon {
-  font-size: 1.1rem;
+  font-size: $font-size-icon;
   min-width: 20px;
   margin-right: 0.75rem;
 }
@@ -190,22 +212,23 @@ const navItems = [
   right: -12px;
   top: 50%;
   transform: translateY(-50%);
-  background: white;
-  border: 1px solid #dee2e6;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  background: $color-bg;
+  border: 1px solid $color-border;
+  border-radius: $radius-circle;
+  width: $btn-collapse-size;
+  height: $btn-collapse-size;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  font-size: 0.75rem;
-  color: #6c757d;
+  font-size: $font-size-collapse-btn;
+  color: $color-text-muted;
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: #f8f9fa;
-    color: #495057;
+    background-color: $color-hover-bg;
+    color: $color-text;
   }
 }
 </style>
+
