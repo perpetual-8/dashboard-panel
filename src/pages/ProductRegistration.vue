@@ -205,6 +205,8 @@
 
 <script setup>
 import { ref } from "vue";
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 
 const categories = ["Electronics", "Clothing", "Accessories"];
 
@@ -298,7 +300,7 @@ const submitProduct = async () => {
   };
 
   try {
-    const response = await fetch("http://localhost:3001/api/products", {
+    const response = await fetch(`${API_BASE}/api/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(productData),

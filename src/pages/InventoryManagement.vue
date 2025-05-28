@@ -235,6 +235,7 @@ import { AgGridVue } from "ag-grid-vue3";
 import * as bootstrap from "bootstrap";
 import BaseInput from "@/components/ui/BaseInput.vue";
 import BaseSelect from "@/components/ui/BaseSelect.vue";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 const products = ref([]);
 const categories = ["Electronics", "Clothing", "Accessories"];
@@ -365,7 +366,7 @@ const onCellValueChanged = async (event) => {
     if (!isNaN(newStock) && newStock >= 0) {
       try {
         const res = await fetch(
-          `http://localhost:3001/api/products/${product.id}`,
+          `${API_BASE}/api/products/${product.id}`,
           {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
@@ -402,7 +403,7 @@ const saveProduct = async () => {
   ) {
     try {
       const res = await fetch(
-        `http://localhost:3001/api/products/${product.id}`,
+        `${API_BASE}/api/products/${product.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -435,7 +436,7 @@ const saveProduct = async () => {
 const confirmDeleteProduct = async () => {
   const id = deleteProductData.value.id;
   try {
-    const res = await fetch(`http://localhost:3001/api/products/${id}`, {
+    const res = await fetch(`${API_BASE}/api/products/${id}`, {
       method: "DELETE",
     });
     const result = await res.json();
@@ -466,7 +467,7 @@ const fetchProducts = async () => {
   loading.value = true;
   error.value = "";
   try {
-    const res = await fetch("http://localhost:3001/api/products");
+    const res = await fetch(`${API_BASE}/api/products`);
     if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
     const data = await res.json();
     if (Array.isArray(data)) {
