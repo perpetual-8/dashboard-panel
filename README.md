@@ -39,11 +39,11 @@ A modern, responsive admin dashboard for e-commerce management built with Vue.js
 git clone https://github.com/perpetual-8/dashboard-panel.git
 cd dashboard-panel
 
-# Install dependencies
-npm install
 
-# Start development server
-npm run dev
+**Run Everything Together**
+```bash
+npm run install:all     # installs root + backend deps
+npm run dev             # runs frontend + backend together
 
 # Build for production
 npm run build
@@ -96,3 +96,6 @@ MIT License - Built for demonstration purposes.
 ---
 
 **Clean code, modern architecture, production-ready.**
+
+
+
