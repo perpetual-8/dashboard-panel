@@ -1,6 +1,6 @@
 <template>
   <div class="inventory-container container mt-4">
-    <h2 class="mb-4">Inventory Management</h2>
+    <h2 class="mb-4">Manage Products</h2>
 
     <div class="inventory-controls d-flex flex-wrap gap-3 mb-4">
       <div class="control-group flex-grow-1" style="min-width: 200px">
@@ -110,7 +110,7 @@
       </ul>
     </div>
 
-    <!-- Edit Product Modal -->
+    
 
     <div
       class="modal fade"
@@ -181,7 +181,7 @@
       </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
+    
     <div
       class="modal fade"
       id="deleteProductModal"
@@ -233,8 +233,8 @@
 import { ref, computed, onMounted } from "vue";
 import { AgGridVue } from "ag-grid-vue3";
 import * as bootstrap from "bootstrap";
-import BaseInput from "@/components/microUI/BaseInput.vue";
-import BaseSelect from "@/components/microUI/BaseSelect.vue";
+import BaseInput from "@/components/ui/BaseInput.vue";
+import BaseSelect from "@/components/ui/BaseSelect.vue";
 
 const products = ref([]);
 const categories = ["Electronics", "Clothing", "Accessories"];
@@ -392,7 +392,8 @@ const editProduct = (product) => {
   modal.show();
 };
 const saveProduct = async () => {
-  const product = { ...editProductData.value }; // Create a copy to avoid direct mutation
+  // Creating a copy  
+  const product = { ...editProductData.value }; 
   if (
     product.name &&
     product.category &&
@@ -415,14 +416,14 @@ const saveProduct = async () => {
       // Update local products array
       const index = products.value.findIndex((p) => p.id === product.id);
       if (index !== -1) {
-        products.value[index] = { ...product }; // Ensure reactivity
-        products.value = [...products.value]; // Trigger reactivity
+        products.value[index] = { ...product };  
+        products.value = [...products.value];  
       }
 
       bootstrap.Modal.getInstance(
         document.getElementById("editProductModal")
       ).hide();
-      error.value = ""; // Clear any previous errors
+      error.value = "";  
     } catch (err) {
       error.value = `Failed to update product: ${err.message}`;
     }
@@ -494,13 +495,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-$primary-color: #007bff;
-$success-color: #28a745;
-$danger-color: #dc3545;
-$light-gray: #f8f9fa;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
-
 .inventory-container {
   background: white;
   border-radius: 12px;

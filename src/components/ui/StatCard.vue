@@ -1,11 +1,13 @@
 <template>
-  <div class="stat-card" @click="handleClick" :class="{ 'clickable': clickable }">
+  <div class="stat-card" @click="handleClick" :class="{ clickable: clickable }">
     <div class="card-body">
       <div class="card-header">
         <div class="icon-wrapper" v-if="icon">
           <i :class="icon" class="stat-icon"></i>
         </div>
-        <span v-if="trend" :class="trendClass" class="trend-badge">{{ trend }}</span>
+        <span v-if="trend" :class="trendClass" class="trend-badge">{{
+          trend
+        }}</span>
       </div>
       <h6 class="card-subtitle">{{ title }}</h6>
       <h3 class="stat-value">{{ formattedValue }}</h3>
@@ -17,7 +19,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const props = defineProps({
   title: String,
@@ -27,49 +29,43 @@ const props = defineProps({
   icon: String,
   type: {
     type: String,
-    default: 'default'
+    default: "default",
   },
   clickable: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
-const emit = defineEmits(['click'])
+const emit = defineEmits(["click"]);
 
 const trendClass = computed(() => {
-  if (!props.trend) return ''
-  return props.trend.startsWith('+') ? 'trend-positive' : 'trend-negative'
-})
+  if (!props.trend) return "";
+  return props.trend.startsWith("+") ? "trend-positive" : "trend-negative";
+});
 
 const formattedValue = computed(() => {
-  if (typeof props.value === 'number') {
-    if (props.type === 'currency') {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD'
-      }).format(props.value)
+  if (typeof props.value === "number") {
+    if (props.type === "currency") {
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+      }).format(props.value);
     }
-    return props.value.toLocaleString()
+    return props.value.toLocaleString();
   }
-  return props.value
-})
+  return props.value;
+});
 
 const handleClick = () => {
   if (props.clickable) {
-    emit('click')
+    emit("click");
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-$primary-color: #007bff;
-$primary-dark: #0056b3;
-$success-color: #28a745;
-$danger-color: #dc3545;
-$light-gray: #f8f9fa;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
+$primary-dark: #0056b3; //diff
 
 .stat-card {
   background: white;
@@ -81,7 +77,7 @@ $text-muted: #6c757d;
   padding: 1.5rem;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -146,7 +142,7 @@ $text-muted: #6c757d;
     font-weight: 600;
     padding: 0.25rem 0.5rem;
     border-radius: 20px;
-    
+
     &.trend-positive {
       color: $success-color;
       background-color: rgba($success-color, 0.1);

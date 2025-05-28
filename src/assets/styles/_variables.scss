@@ -1,16 +1,8 @@
-$primary: #4CAF50;
-$font-family-base: 'Segoe UI', sans-serif;
+ 
+// Typography
+$font-family-base: 'Pretendard', 'Segoe UI', sans-serif;
 
-
-$primary-color: #007bff;
-$success-color: #28a745;
-$danger-color: #dc3545;
-$light-gray: #f8f9fa;
-$border-color: #e9ecef;
-$text-muted: #6c757d;
-
-
-
+// Breakpoints
 $breakpoints: (
   xs: 0,
   sm: 576px,
@@ -19,6 +11,50 @@ $breakpoints: (
   xl: 1200px,
   xxl: 1400px
 );
- 
+
+// Brand Colors
+$primary-color: #3DA5F5;
+$success-color: #2BAE66;
+$danger-color: #E74C3C;
+$warning-color: #FFC107;
+$info-color: #5B9BD5;
+
+// Background Colors
+$color-bg: #F9FAFB;
+$color-surface: #FFFFFF;
+$color-hover-bg: #F1F3F5;
+$color-active-bg: #3DA5F5;
+$color-active-text: #FFFFFF;
+
+// Gradient Backgrounds
+$gradient-bg: linear-gradient(135deg, #F9FAFB 0%, #EDF0F3 100%);
+$gradient-active: linear-gradient(90deg, #3DA5F5 0%, #5B9BD5 100%);
+
+// Neutral / UI Colors
+$light-gray: #F1F3F5;
+$border-color: #D1D6DB;
+$color-border: #CED4DA;
+
+$text-color: #333D4B;
+$text-muted: #6B7684;
+
+// Focus & Error
+$color-focus: $primary-color;
+$color-error: $danger-color;
+
+// Radius
+$radius: 0.5rem;             // 8px
+$radius-circle: 50%;
+$border-radius: 10px;
+
+// Font Sizes
+$font-size-base: 1rem;       // 16px
+$font-size-label: 0.95rem;   // 15.2px
+$head-font-size:1.5rem;
+$head-font-weight:600;
+$head-color:$text-color;
 
 
+// Shadows
+$box-shadow-hover: 0 4px 15px rgba(0, 0, 0, 0.08);
+$box-shadow-active: 0 2px 4px rgba(61, 165, 245, 0.3);
