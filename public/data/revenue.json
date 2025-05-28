@@ -1,4 +1,47 @@
 [
-  { "date": "2025-05-20", "orders": 10, "sales": 300 },
-  { "date": "2025-05-21", "orders": 15, "sales": 450 }
+  {
+    "category": "Electronics",
+    "data": [
+      { "period": "Jan", "budget": 20000, "revenue": 24000, "expenses": 16000, "profit": 8000, "receivedOrders": 400 },
+      { "period": "Feb", "budget": 21000, "revenue": 25000, "expenses": 16500, "profit": 8500, "receivedOrders": 420 },
+      { "period": "Mar", "budget": 22000, "revenue": 27000, "expenses": 17000, "profit": 10000, "receivedOrders": 450 },
+      { "period": "Apr", "budget": 21000, "revenue": 26000, "expenses": 17500, "profit": 8500, "receivedOrders": 430 },
+      { "period": "May", "budget": 23000, "revenue": 28000, "expenses": 18000, "profit": 10000, "receivedOrders": 470 },
+      { "period": "Jun", "budget": 22000, "revenue": 27500, "expenses": 17200, "profit": 10300, "receivedOrders": 460 },
+      { "period": "Jul", "budget": 22500, "revenue": 29000, "expenses": 18000, "profit": 11000, "receivedOrders": 490 },
+      { "period": "Aug", "budget": 23500, "revenue": 31000, "expenses": 19500, "profit": 11500, "receivedOrders": 510 },
+      { "period": "Sep", "budget": 24000, "revenue": 32000, "expenses": 20000, "profit": 12000, "receivedOrders": 530 },
+      { "period": "Oct", "budget": 25000, "revenue": 33500, "expenses": 21000, "profit": 12500, "receivedOrders": 550 }
+    ]
+  },
+  {
+    "category": "Clothes",
+    "data": [
+      { "period": "Jan", "budget": 15000, "revenue": 14000, "expenses": 10000, "profit": 4000, "receivedOrders": 310 },
+      { "period": "Feb", "budget": 15500, "revenue": 14500, "expenses": 10200, "profit": 4300, "receivedOrders": 320 },
+      { "period": "Mar", "budget": 16000, "revenue": 15000, "expenses": 10500, "profit": 4500, "receivedOrders": 330 },
+      { "period": "Apr", "budget": 15500, "revenue": 14800, "expenses": 10300, "profit": 4500, "receivedOrders": 325 },
+      { "period": "May", "budget": 16500, "revenue": 15500, "expenses": 11000, "profit": 4500, "receivedOrders": 340 },
+      { "period": "Jun", "budget": 17000, "revenue": 16000, "expenses": 11200, "profit": 4800, "receivedOrders": 350 },
+      { "period": "Jul", "budget": 17500, "revenue": 16200, "expenses": 11500, "profit": 4700, "receivedOrders": 355 },
+      { "period": "Aug", "budget": 18000, "revenue": 16800, "expenses": 12000, "profit": 4800, "receivedOrders": 360 },
+      { "period": "Sep", "budget": 18500, "revenue": 17200, "expenses": 12300, "profit": 4900, "receivedOrders": 370 },
+      { "period": "Oct", "budget": 19000, "revenue": 17500, "expenses": 12500, "profit": 5000, "receivedOrders": 380 }
+    ]
+  },
+  {
+    "category": "Accessories",
+    "data": [
+      { "period": "Jan", "budget": 8000, "revenue": 9500, "expenses": 7000, "profit": 2500, "receivedOrders": 200 },
+      { "period": "Feb", "budget": 8500, "revenue": 9800, "expenses": 7200, "profit": 2600, "receivedOrders": 210 },
+      { "period": "Mar", "budget": 8700, "revenue": 10000, "expenses": 7400, "profit": 2600, "receivedOrders": 215 },
+      { "period": "Apr", "budget": 9000, "revenue": 10200, "expenses": 7600, "profit": 2600, "receivedOrders": 220 },
+      { "period": "May", "budget": 9200, "revenue": 10500, "expenses": 7800, "profit": 2700, "receivedOrders": 230 },
+      { "period": "Jun", "budget": 9500, "revenue": 10800, "expenses": 8000, "profit": 2800, "receivedOrders": 240 },
+      { "period": "Jul", "budget": 9800, "revenue": 11000, "expenses": 8200, "profit": 2800, "receivedOrders": 250 },
+      { "period": "Aug", "budget": 10000, "revenue": 11500, "expenses": 8500, "profit": 3000, "receivedOrders": 260 },
+      { "period": "Sep", "budget": 10300, "revenue": 11800, "expenses": 8800, "profit": 3000, "receivedOrders": 270 },
+      { "period": "Oct", "budget": 10500, "revenue": 12000, "expenses": 9000, "profit": 3000, "receivedOrders": 280 }
+    ]
+  }
 ]
