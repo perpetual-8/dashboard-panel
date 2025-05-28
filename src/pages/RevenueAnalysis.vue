@@ -2,23 +2,21 @@
   <div>
     <h2 class="mb-4">Dashboard</h2>
     
-    <!-- Loading State -->
+ 
     <div v-if="isLoading" class="text-center py-5">
       <div class="spinner-border text-primary" role="status">
         <span class="sr-only">Loading...</span>
       </div>
       <p class="mt-2">Loading dashboard data...</p>
     </div>
-
-    <!-- Error State -->
+ 
     <div v-else-if="error" class="alert alert-danger" role="alert">
       <i class="fas fa-exclamation-triangle"></i>
       {{ error }}
     </div>
-
-    <!-- Dashboard Content -->
+ 
     <div v-else>
-      <!-- Stat Cards -->
+       
       <div class="row mb-4">
         <div class="col-md-6 col-lg-3">
           <StatCard title="Revenue Today" value="$1,234" trend="+12%" subtitle="vs Yesterday" />
@@ -34,7 +32,7 @@
         </div>
       </div>
 
-      <!-- Revenue Analysis -->
+   
       <h5 class="mt-4 mb-3">Revenue Analysis</h5>
       <div class="row">
         <div class="col-md-6">
@@ -61,7 +59,7 @@
         </div>
       </div>
 
-      <!-- Order Analysis -->
+       
       <h5 class="mt-4 mb-3">Order Analysis</h5>
       <div class="row">
         <div class="col-md-6">
@@ -88,7 +86,7 @@
         </div>
       </div>
 
-      <!-- Combined Analysis -->
+      
       <div class="row mt-4">
         <div class="col-12">
           <ChartComponent 

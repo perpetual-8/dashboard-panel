@@ -1,20 +1,20 @@
  
 <template>
   <div class="admin-layout">
-    <!-- Mobile overlay for sidebar -->
+    
     <div 
       v-if="isMobileMenuOpen" 
       class="mobile-overlay"
       @click="closeMobileMenu"
     ></div>
     
-    <!-- Sidebar -->
+   
     <Sidebar 
       :is-mobile-open="isMobileMenuOpen"
       @close="closeMobileMenu"
     />
     
-    <!-- Main content area -->
+     
     <div class="main-content" :class="{ 'sidebar-open': isMobileMenuOpen }">
       <TopNav @toggle-menu="toggleMobileMenu" />
       <main class="content-area">

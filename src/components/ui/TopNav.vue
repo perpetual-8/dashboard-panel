@@ -1,7 +1,7 @@
 <template>
   <header class="top-nav">
     <div class="nav-content">
-      <!-- Mobile menu toggle -->
+    
       <button
         class="btn-menu-toggle d-md-none"
         @click="$emit('toggle-menu')"
@@ -9,26 +9,14 @@
       >
         <i class="bi bi-list"></i>
       </button>
-
-      <!-- Page title or breadcrumb -->
+ 
       <div class="nav-title">
         <h5 class="mb-0">{{ getPageTitle() }}</h5>
       </div>
-
-      <!-- Right side items -->
+ 
       <div class="nav-actions">
-        <!-- Notifications -->
-        <button class="btn-nav-action" title="Notifications">
-          <i class="bi bi-bell"></i>
-        </button>
-
-        <!-- User menu -->
-        <div class="user-menu">
-          <button class="btn-user" title="User menu">
-            <i class="bi bi-person-circle"></i>
-            <span class="d-none d-sm-inline ms-2">Admin</span>
-          </button>
-        </div>
+       
+       
       </div>
     </div>
   </header>

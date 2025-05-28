@@ -2,7 +2,7 @@
   <div class="product-registration-wrapper">
     <div class="container-fluid">
       <div class="row">
-        <!-- Left Side - Form -->
+       
         <div class="col-lg-6 col-md-12">
           <div class="product-registration-container">
             <h2 class="mb-4">Add New Product</h2>
@@ -71,8 +71,7 @@
                   </option>
                 </select>
               </div>
-
-              <!-- Mobile Image Upload (hidden on larger screens) -->
+ 
               <div class="mb-3 mobile-image-upload">
                 <label for="productImage" class="form-label"
                   >Product Image</label
@@ -97,7 +96,7 @@
           </div>
         </div>
 
-        <!-- Right Side - Drag & Drop Image Uploader -->
+       
         <div class="col-lg-6 col-md-12">
           <div class="image-uploader-container">
             <h3 class="mb-4">Product Image</h3>

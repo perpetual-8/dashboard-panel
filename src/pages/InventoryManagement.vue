@@ -110,7 +110,7 @@
       </ul>
     </div>
 
-    <!-- Edit Product Modal -->
+    
 
     <div
       class="modal fade"
@@ -181,7 +181,7 @@
       </div>
     </div>
 
-    <!-- Delete Confirmation Modal -->
+    
     <div
       class="modal fade"
       id="deleteProductModal"
