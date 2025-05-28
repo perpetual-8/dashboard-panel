@@ -1,101 +1,64 @@
-# E-commerce Admin Dashboard
+# Delta Dashboard
 
-A modern, responsive admin dashboard for e-commerce management built with Vue.js 3. Features real-time analytics, inventory management, and product registration with interactive data visualizations.
-
-## Features
-
-**Revenue Analytics**
-- Real-time sales and order tracking
-- Interactive charts with Vue chart.js wrapped over Chart.js
-- Time-based filtering (daily, weekly, monthly, yearly)
-- Category-wise revenue breakdown
-
-**Inventory Management**
-- Advanced data grid with AG Grid
-- Real-time stock level updates
-- Smart search and filtering
-- Low inventory alerts
-
-**Product Management**
-- Easy product registration form
-- Image upload functionality
-- Instant dashboard updates
-- Form validation and error handling
-
-## Tech Stack
-
-- **Vue.js 3** - Progressive JavaScript framework
-- **Bootstrap 5** - Responsive UI components
-- **AG Grid** - Feature-rich data tables
-- **Chart.js** - Interactive data visualization
-- **Vue Router** - Client-side routing
-- **Vite** - Fast build tool and dev server
-- **SASS** - CSS preprocessing
-
-## Quick Start
-
-```bash
-# Clone repository
-git clone https://github.com/perpetual-8/dashboard-panel.git
-cd dashboard-panel
-
-
-**Run Everything Together**
-```bash
-npm run install:all     # installs root + backend deps
-npm run dev             # runs frontend + backend together
-
-# Build for production
-npm run build
-```
-
-## Project Structure
-
-```
-src/
-├── components/
-│   └── ui/              # Reusable UI components
-├── pages/
-│   ├── RevenueAnalysis.vue
-│   ├── InventoryManagement.vue
-│   └── ProductRegistration.vue
-├── layouts/
-│   └── DashboardLayout.vue
-├── router/              # Vue Router configuration
-└── assets/              # Static assets and styles
-```
-
-## Development
-
-The project uses modern Vue.js patterns with Composition API and follows component-based architecture. Each page is modular and reusable with proper separation of concerns.
-
-**Key Files:**
-- `pages/` - Main dashboard pages
-- `components/ui/` - Shared components (BaseInput, BaseSelect, etc.)
-- `layouts/` - Layout wrapper for consistent design
-- `public/data/` - Sample JSON data for development
-
-## Sample Data
-
-Includes realistic e-commerce data:
-- Product inventory with categories and stock levels
-- Historical sales data for analytics
-- Revenue data across multiple time periods
-
-## Browser Support
-
-- Chrome (recommended)
-- Firefox
-- Safari
-- Edge
-
-## License
-
-MIT License - Built for demonstration purposes.
+A modern, responsive e-commerce admin dashboard built with Vue.js 3 and Node.js. It features real-time analytics, product management, and inventory control, delivering a sleek, data-driven experience for admins.
 
 ---
 
-**Clean code, modern architecture, production-ready.**
+## 🚀 Features
 
+### 📊 Revenue Analytics
+- Real-time sales and order tracking
+- Interactive charts (Chart.js via vue-chartjs)
+- Time-based filters (daily, weekly, monthly, yearly)
+- Category-wise revenue breakdown
 
+### 📦 Inventory Management
+- AG Grid-powered product data grid
+- Live stock updates with inline editing
+- Smart filtering and search
+- Low inventory alerts
 
+### 🛍 Product Management
+- Product registration with image upload
+- Form validation and instant updates
+- Drag & drop upload UI with preview
+
+### ⚙️ Backend API
+- RESTful Express API
+- Full CRUD operations on `/api/products`
+- JSON file-based mock storage
+- CORS enabled for frontend access
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+- **Vue.js 3** + Composition API
+- **Bootstrap 5** + Bootstrap Icons
+- **AG Grid** for data tables
+- **Chart.js** via `vue-chartjs`
+- **Vue Router** for SPA navigation
+- **Vite** for lightning-fast dev/build
+- **SASS** for styling
+
+### Backend
+- **Node.js** + **Express**
+- **Multer** for image handling
+- **CORS** for frontend-backend integration
+- **Nodemon** for hot reload
+
+---
+
+## ⚡ Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/perpetual-8/dashboard-panel.git
+cd dashboard-panel
+
+# Install dependencies (frontend + backend)
+npm run install:all
+
+# Start development servers
+npm run dev
