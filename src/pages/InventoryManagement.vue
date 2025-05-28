@@ -392,7 +392,8 @@ const editProduct = (product) => {
   modal.show();
 };
 const saveProduct = async () => {
-  const product = { ...editProductData.value }; // Create a copy to avoid direct mutation
+  // Creating a copy  
+  const product = { ...editProductData.value }; 
   if (
     product.name &&
     product.category &&
@@ -415,14 +416,14 @@ const saveProduct = async () => {
       // Update local products array
       const index = products.value.findIndex((p) => p.id === product.id);
       if (index !== -1) {
-        products.value[index] = { ...product }; // Ensure reactivity
-        products.value = [...products.value]; // Trigger reactivity
+        products.value[index] = { ...product };  
+        products.value = [...products.value];  
       }
 
       bootstrap.Modal.getInstance(
         document.getElementById("editProductModal")
       ).hide();
-      error.value = ""; // Clear any previous errors
+      error.value = "";  
     } catch (err) {
       error.value = `Failed to update product: ${err.message}`;
     }

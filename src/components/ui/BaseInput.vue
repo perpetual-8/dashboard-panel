@@ -22,7 +22,7 @@
 defineProps({
   label: String,
   invalid: Boolean,
-  modelValue: [String, Number], // Support both String and Number
+  modelValue: [String, Number],  
 });
 defineEmits(["update:modelValue"]);
 </script>

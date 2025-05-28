@@ -58,9 +58,9 @@ onUnmounted(() => {
 
  <style scoped lang="scss">
 
-$spacing-sm: 0.75rem;  // custom small spacing variable
-$spacing-md: 1rem;     // custom medium spacing variable
-$spacing-lg: 1.5rem;   // custom large spacing variable
+$spacing-sm: 0.75rem;   
+$spacing-md: 1rem;     
+$spacing-lg: 1.5rem;   
 
 $z-overlay: 1040;
 

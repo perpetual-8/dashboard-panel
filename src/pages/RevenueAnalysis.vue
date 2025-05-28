@@ -109,7 +109,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import StatCard from '../components/ui/StatCard.vue'
-import ChartComponent from '../components/ui/LineChart.vue'
+import ChartComponent from '../components/ui/Chart.vue'
 
 // Reactive revenue data
 const revenueData = ref([])

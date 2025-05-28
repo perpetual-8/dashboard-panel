@@ -1,4 +1,4 @@
-<template>
+ <template>
   <div class="chart-container">
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
       <div>
@@ -16,7 +16,9 @@
         <option value="weekly">Weekly</option>
         <option value="monthly">Monthly</option>
       </select>
-      <canvas ref="chartCanvas"></canvas>
+      <div class="canvas-container">
+        <canvas ref="chartCanvas"></canvas>
+      </div>
     </div>
   </div>
 </template>
@@ -265,14 +267,16 @@ watch(
 watch(() => timeRange.value, () => updateChart())
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .chart-container {
   background: #fff;
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-   
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .chart-header {
@@ -292,22 +296,38 @@ watch(() => timeRange.value, () => updateChart())
   font-weight: 600;
   padding: 4px 8px;
   border-radius: 4px;
-}
 
-.chart-trend.text-success {
-  background-color: rgba(40, 167, 69, 0.1);
-}
+  &.text-success {
+    background-color: rgba(40, 167, 69, 0.1);
+  }
 
-.chart-trend.text-danger {
-  background-color: rgba(220, 53, 69, 0.1);
+  &.text-danger {
+    background-color: rgba(220, 53, 69, 0.1);
+  }
 }
 
 .chart-wrapper {
-  position: relative;
-  height: v-bind('height + "px"');
+  width: 100%;
+  max-width: 100%;
   margin-top: 15px;
 }
 
+.canvas-container {
+  position: relative;
+  width: 100%;
+  height: v-bind('`${height}px`');
+  max-width: 100%;
+  overflow: hidden;
+
+  canvas {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
+
+// Utility classes
 .text-success {
   color: #28a745 !important;
 }
@@ -319,7 +339,7 @@ watch(() => timeRange.value, () => updateChart())
 .text-muted {
   color: #6c757d !important;
 }
- 
+
 .d-flex {
   display: flex !important;
 }
@@ -338,5 +358,17 @@ watch(() => timeRange.value, () => updateChart())
 
 .mb-3 {
   margin-bottom: 1rem !important;
+}
+
+.form-select {
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m1 6 7 7 7-7'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  appearance: none;
 }
 </style>
