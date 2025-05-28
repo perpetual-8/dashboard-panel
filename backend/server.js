@@ -5,78 +5,124 @@ const multer = require("multer");
 const cors = require("cors");
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+// Multer setup
 const upload = multer({ dest: "uploads/" });
 
+// Data paths
 const dataDir = path.join(__dirname, "data");
 const dataFilePath = path.join(dataDir, "product.json");
- 
+const defaultDataPath = path.join(dataDir, "default.json");
+
+// Ensure data directory and default file exist
 if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir);
+  fs.mkdirSync(dataDir, { recursive: true });
 }
- 
-if (!fs.existsSync(dataFilePath)) {
-  fs.writeFileSync(dataFilePath, "[]", "utf8");
+
+if (!fs.existsSync(defaultDataPath)) {
+  fs.writeFileSync(defaultDataPath, "[]", "utf8");
+}
+
+// RESET product.json to default state on every server start
+fs.copyFileSync(defaultDataPath, dataFilePath);
+
+// Load products
+function loadProducts() {
+  try {
+    return JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
+  } catch {
+    return [];
+  }
+}
+
+// Save products
+function saveProducts(products) {
+  try {
+    fs.writeFileSync(dataFilePath, JSON.stringify(products, null, 2), "utf8");
+  } catch (err) {
+    throw new Error("Failed to save data file");
+  }
 }
 
 // GET all products
 app.get("/api/products", (req, res) => {
-  const products = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
+  const products = loadProducts();
   res.json(products);
 });
 
 // POST a new product
 app.post("/api/products", upload.none(), (req, res) => {
-  const product = req.body;
-  const products = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
-  product.id = Date.now();
-  product.price = Number(product.price);  
-  product.stock = Number(product.stock);  
-  products.push(product);
+  try {
+    const product = req.body;
+    const products = loadProducts();
 
-  fs.writeFileSync(dataFilePath, JSON.stringify(products, null, 2), "utf8");
-  res.json({ success: true, message: "Product saved successfully", product });
+    product.id = Date.now();
+    product.price = Number(product.price);
+    product.stock = Number(product.stock);
+    products.push(product);
+
+    saveProducts(products);
+    res.json({ success: true, message: "Product saved successfully", product });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
 });
- 
+
+// PUT update product
 app.put("/api/products/:id", (req, res) => {
-  const productId = Number(req.params.id);
-  const updatedProduct = req.body;
-  let products = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
+  try {
+    const productId = Number(req.params.id);
+    const updatedProduct = req.body;
+    const products = loadProducts();
 
-  const productIndex = products.findIndex((p) => p.id === productId);
-  if (productIndex === -1) {
-    return res.status(404).json({ success: false, message: "Product not found" });
+    const index = products.findIndex((p) => p.id === productId);
+    if (index === -1) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    products[index] = {
+      ...products[index],
+      ...updatedProduct,
+      price: Number(updatedProduct.price),
+      stock: Number(updatedProduct.stock),
+    };
+
+    saveProducts(products);
+    res.json({ success: true, message: "Product updated successfully", product: products[index] });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-
-  products[productIndex] = {
-    ...products[productIndex],
-    ...updatedProduct,
-    price: Number(updatedProduct.price),  
-    stock: Number(updatedProduct.stock),  
-  };
-
-  fs.writeFileSync(dataFilePath, JSON.stringify(products, null, 2), "utf8");
-  res.json({ success: true, message: "Product updated successfully", product: products[productIndex] });
 });
 
-// DELETE a product
+// DELETE product
 app.delete("/api/products/:id", (req, res) => {
-  const productId = Number(req.params.id);
-  let products = JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
+  try {
+    const productId = Number(req.params.id);
+    let products = loadProducts();
 
-  const productIndex = products.findIndex((p) => p.id === productId);
-  if (productIndex === -1) {
-    return res.status(404).json({ success: false, message: "Product not found" });
+    const index = products.findIndex((p) => p.id === productId);
+    if (index === -1) {
+      return res.status(404).json({ success: false, message: "Product not found" });
+    }
+
+    products = products.filter((p) => p.id !== productId);
+    saveProducts(products);
+
+    res.json({ success: true, message: "Product deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
-
-  products = products.filter((p) => p.id !== productId);
-  fs.writeFileSync(dataFilePath, JSON.stringify(products, null, 2), "utf8");
-  res.json({ success: true, message: "Product deleted successfully" });
 });
 
+app.get("/", (req, res) => {
+  res.status(200).send("Server is running!");
+});
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

@@ -1,0 +1,250 @@
+[
+  {
+    "name": "Assus Tuf F16",
+    "description": "Excellent laptop",
+    "price": 15,
+    "stock": 100,
+    "category": "Electronics",
+    "id": 1748246547669
+  },
+  {
+    "name": "Quantum Earbuds",
+    "description": "Wireless noise-canceling earbuds with 20-hour battery life",
+    "price": 89.99,
+    "stock": 200,
+    "category": "Electronics",
+    "id": 1748246547670
+  },
+  {
+    "name": "Smart LED TV 55\"",
+    "description": "4K Ultra HD smart TV with HDR support",
+    "price": 499.99,
+    "stock": 50,
+    "category": "Electronics",
+    "id": 1748246547671
+  },
+  {
+    "name": "Gaming Mouse Pro",
+    "description": "High-precision gaming mouse with customizable RGB",
+    "price": 59.99,
+    "stock": 150,
+    "category": "Electronics",
+    "id": 1748246547672
+  },
+  {
+    "name": "Portable SSD 1TB",
+    "description": "Fast and compact external solid-state drive",
+    "price": 129.99,
+    "stock": 80,
+    "category": "Electronics",
+    "id": 1748246547673
+  },
+  {
+    "name": "Wireless Keyboard",
+    "description": "Sleek wireless keyboard with backlit keys",
+    "price": 79.99,
+    "stock": 120,
+    "category": "Electronics",
+    "id": 1748246547674
+  },
+  {
+    "name": "Smartwatch X1",
+    "description": "Fitness tracker with heart rate monitor and GPS",
+    "price": 199.99,
+    "stock": 90,
+    "category": "Electronics",
+    "id": 1748246547675
+  },
+  {
+    "name": "Bluetooth Speaker",
+    "description": "Portable speaker with deep bass and waterproof design",
+    "price": 69.99,
+    "stock": 110,
+    "category": "Electronics",
+    "id": 1748246547676
+  },
+  {
+    "name": "VR Headset",
+    "description": "Immersive virtual reality headset with controllers",
+    "price": 399.99,
+    "stock": 30,
+    "category": "Electronics",
+    "id": 1748246547677
+  },
+  {
+    "name": "Action Camera 4K",
+    "description": "Compact camera for recording adventures in 4K",
+    "price": 149.99,
+    "stock": 70,
+    "category": "Electronics",
+    "id": 1748246547678
+  },
+  {
+    "name": "Denim Jacket",
+    "description": "Classic blue denim jacket with button closure",
+    "price": 49.99,
+    "stock": 60,
+    "category": "Clothes",
+    "id": 1748246547679
+  },
+  {
+    "name": "Cotton T-Shirt",
+    "description": "Comfortable crew neck t-shirt in various colors",
+    "price": 19.99,
+    "stock": 200,
+    "category": "Clothes",
+    "id": 1748246547680
+  },
+  {
+    "name": "Slim Fit Jeans",
+    "description": "Stretchy slim fit jeans for everyday wear",
+    "price": 39.99,
+    "stock": 150,
+    "category": "Clothes",
+    "id": 1748246547681
+  },
+  {
+    "name": "Hooded Sweatshirt",
+    "description": "Warm hoodie with kangaroo pocket",
+    "price": 29.99,
+    "stock": 100,
+    "category": "Clothes",
+    "id": 1748246547682
+  },
+  {
+    "name": "Formal Dress Shirt",
+    "description": "Crisp white shirt for professional settings",
+    "price": 34.99,
+    "stock": 80,
+    "category": "Clothes",
+    "id": 1748246547683
+  },
+  {
+    "name": "Summer Dress",
+    "description": "Lightweight floral dress for warm weather",
+    "price": 44.99,
+    "stock": 90,
+    "category": "Clothes",
+    "id": 1748246547684
+  },
+  {
+    "name": "Wool Coat",
+    "description": "Elegant wool coat for cold seasons",
+    "price": 99.99,
+    "stock": 40,
+    "category": "Clothes",
+    "id": 1748246547685
+  },
+  {
+    "name": "Athletic Shorts",
+    "description": "Breathable shorts for sports and workouts",
+    "price": 24.99,
+    "stock": 120,
+    "category": "Clothes",
+    "id": 1748246547686
+  },
+  {
+    "name": "Knit Sweater",
+    "description": "Cozy sweater for casual winter wear",
+    "price": 59.99,
+    "stock": 70,
+    "category": "Clothes",
+    "id": 1748246547687
+  },
+  {
+    "name": "Chino Pants",
+    "description": "Versatile chino pants for smart-casual looks",
+    "price": 49.99,
+    "stock": 100,
+    "category": "Clothes",
+    "id": 1748246547688
+  },
+  {
+    "name": "Leather Wallet",
+    "description": "Premium leather wallet with RFID protection",
+    "price": 29.99,
+    "stock": 150,
+    "category": "Accessories",
+    "id": 1748246547689
+  },
+  {
+    "name": "Sunglasses Aviator",
+    "description": "Stylish aviator sunglasses with UV protection",
+    "price": 19.99,
+    "stock": 200,
+    "category": "Accessories",
+    "id": 1748246547690
+  },
+  {
+    "name": "Canvas Backpack",
+    "description": "Durable backpack for daily use",
+    "price": 39.99,
+    "stock": 8,
+    "category": "Accessories",
+    "id": 1748246547691
+  },
+  {
+    "name": "Wristwatch Classic",
+    "description": "Elegant analog watch with leather strap",
+    "price": 79.99,
+    "stock": 60,
+    "category": "Accessories",
+    "id": 1748246547692
+  },
+  {
+    "name": "Beanie Hat",
+    "description": "Warm knit beanie for winter",
+    "price": 14.99,
+    "stock": 150,
+    "category": "Accessories",
+    "id": 1748246547693
+  },
+  {
+    "name": "Leather Belt",
+    "description": "Classic black leather belt with silver buckle",
+    "price": 24.99,
+    "stock": 100,
+    "category": "Accessories",
+    "id": 1748246547694
+  },
+  {
+    "name": "Silk Scarf",
+    "description": "Soft silk scarf with vibrant patterns",
+    "price": 29.99,
+    "stock": 90,
+    "category": "Accessories",
+    "id": 1748246547695
+  },
+  {
+    "name": "Crossbody Bag",
+    "description": "Compact bag for essentials on the go",
+    "price": 34.99,
+    "stock": 70,
+    "category": "Accessories",
+    "id": 1748246547696
+  },
+  {
+    "name": "Sports Cap",
+    "description": "Breathable cap for outdoor activities",
+    "price": 19.99,
+    "stock": 120,
+    "category": "Accessories",
+    "id": 1748246547697
+  },
+  {
+    "name": "Statement Necklace",
+    "description": "Bold necklace for evening wear",
+    "price": 49.99,
+    "stock": 50,
+    "category": "Accessories",
+    "id": 1748246547698
+  },
+  {
+    "name": "adsf",
+    "description": "af",
+    "price": 11,
+    "stock": 11,
+    "category": "Electronics",
+    "id": 1748269271575
+  }
+]

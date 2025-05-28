@@ -205,7 +205,7 @@
 
 <script setup>
 import { ref } from "vue";
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_BASE ;
 
 
 const categories = ["Electronics", "Clothing", "Accessories"];

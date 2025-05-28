@@ -432,6 +432,7 @@ const saveProduct = async () => {
     error.value = "Please fill all fields correctly.";
   }
 };
+console.log("API BASE:", import.meta.env.VITE_API_BASE);
 
 const confirmDeleteProduct = async () => {
   const id = deleteProductData.value.id;
