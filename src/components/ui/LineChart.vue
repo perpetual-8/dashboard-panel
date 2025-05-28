@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="chart-container">
     <div class="chart-header d-flex justify-content-between align-items-center mb-3">
       <div>
@@ -12,15 +12,16 @@
     </div>
     <div class="chart-wrapper">
       <select v-model="timeRange" class="form-select mb-3" style="width: 150px;">
-  <option value="daily">Daily</option>
-  <option value="weekly">Weekly</option>
-  <option value="monthly">Monthly</option>
-</select>
+        <option value="daily">Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
       <canvas ref="chartCanvas"></canvas>
     </div>
   </div>
 </template>
- <script setup>
+
+<script setup>
 import { ref, onMounted, onUnmounted, watch, computed } from 'vue'
 import {
   Chart,
@@ -32,12 +33,16 @@ import {
   Title,
   Tooltip,
   Legend,
-  Filler,LineController,BarController,
+  Filler,
+  LineController,
+  BarController,
 } from 'chart.js'
 
 Chart.register(
   CategoryScale,
-  LinearScale,LineController,BarController,
+  LinearScale,
+  LineController,
+  BarController,
   PointElement,
   LineElement,
   BarElement,
@@ -85,7 +90,7 @@ const props = defineProps({
 
 const chartCanvas = ref(null)
 let chartInstance = null
-const timeRange = ref('monthly') // NEW: control daily/weekly/monthly
+const timeRange = ref('monthly')
 
 const trendClass = computed(() => {
   if (!props.trend) return ''
@@ -99,21 +104,17 @@ const trendIcon = computed(() => {
   return isPositive ? 'bi bi-arrow-up' : 'bi bi-arrow-down'
 })
 
-
 const processedData = computed(() => {
   if (!props.data || props.data.length === 0) return null
-
   const categories = props.data.map(item => item.category)
-
   const datasets = categories.map((category, index) => {
     const categoryData = props.data[index].data
- 
     const filteredData = categoryData.filter(item => {
-      if (timeRange.value === 'daily') return true
+      if (timeRange.value === 'daily') return item.period.match(/^\d{4}-\d{2}-\d{2}$/)
       if (timeRange.value === 'weekly') return item.period.includes('Week')
-      if (timeRange.value === 'monthly') return item.period.match(/^\d{4}-\d{2}$/)
+      if (timeRange.value === 'monthly') return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'].includes(item.period)
+      return false
     })
-
     let values = []
     switch (props.analysisType) {
       case 'revenue': values = filteredData.map(item => item.revenue); break
@@ -122,9 +123,7 @@ const processedData = computed(() => {
       case 'expenses': values = filteredData.map(item => item.expenses); break
       default: values = filteredData.map(item => item.revenue)
     }
-
     const color = props.colors[index % props.colors.length]
-
     return {
       label: category,
       data: values,
@@ -139,19 +138,15 @@ const processedData = computed(() => {
       pointHoverRadius: 6
     }
   })
-
   const periods = props.data[0]?.data
     ?.filter(item => {
-      if (timeRange.value === 'daily') return true
+      if (timeRange.value === 'daily') return item.period.match(/^\d{4}-\d{2}-\d{2}$/)
       if (timeRange.value === 'weekly') return item.period.includes('Week')
-      if (timeRange.value === 'monthly') return item.period.match(/^\d{4}-\d{2}$/)
+      if (timeRange.value === 'monthly') return ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'].includes(item.period)
+      return false
     })
     .map(item => item.period) || []
-
-  return {
-    labels: periods,
-    datasets
-  }
+  return { labels: periods, datasets }
 })
 
 const chartConfig = computed(() => ({
@@ -266,7 +261,7 @@ watch(
   () => updateChart(),
   { deep: true }
 )
- 
+
 watch(() => timeRange.value, () => updateChart())
 </script>
 
@@ -277,6 +272,7 @@ watch(() => timeRange.value, () => updateChart())
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+   
 }
 
 .chart-header {
@@ -308,7 +304,7 @@ watch(() => timeRange.value, () => updateChart())
 
 .chart-wrapper {
   position: relative;
-  height: 300px;
+  height: v-bind('height + "px"');
   margin-top: 15px;
 }
 
@@ -323,7 +319,7 @@ watch(() => timeRange.value, () => updateChart())
 .text-muted {
   color: #6c757d !important;
 }
-
+ 
 .d-flex {
   display: flex !important;
 }
