@@ -7,26 +7,32 @@ const cors = require("cors");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware
+
+
 app.use(cors());
 app.use(express.json());
 
 // Multer setup
 const upload = multer({ dest: "uploads/" });
 
-// Ensure data directory exists
+// Data paths
 const dataDir = path.join(__dirname, "data");
 const dataFilePath = path.join(dataDir, "product.json");
+const defaultDataPath = path.join(dataDir, "default.json");
 
+// Ensure data directory and default file exist
 if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-if (!fs.existsSync(dataFilePath)) {
-  fs.writeFileSync(dataFilePath, "[]", "utf8");
+if (!fs.existsSync(defaultDataPath)) {
+  fs.writeFileSync(defaultDataPath, "[]", "utf8");
 }
 
-// Helper: Load products
+// RESET product.json to default state on every server start
+fs.copyFileSync(defaultDataPath, dataFilePath);
+
+// Load products
 function loadProducts() {
   try {
     return JSON.parse(fs.readFileSync(dataFilePath, "utf8"));
@@ -35,7 +41,7 @@ function loadProducts() {
   }
 }
 
-// Helper: Save products
+// Save products
 function saveProducts(products) {
   try {
     fs.writeFileSync(dataFilePath, JSON.stringify(products, null, 2), "utf8");
@@ -114,6 +120,9 @@ app.delete("/api/products/:id", (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.status(200).send("Server is running!");
+});
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
